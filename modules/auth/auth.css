@@ -1,0 +1,1107 @@
+.auth-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Use viewport width to prevent shift */
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+/* Remove class that handles fixed elements when modal is open */
+/* body.modal-open .site-header,
+body.modal-open [data-section="kadence_customizer_header_html"] {
+    padding-right: var(--scrollbar-width, 0);
+} */
+
+.auth-modal.active {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 10vh; /* Add some top padding for better positioning */
+    overflow-y: auto; /* Make the modal area scrollable if needed */
+}
+
+.auth-modal-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+
+}
+
+.auth-modal-close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.auth-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    gap: 20px;
+}
+
+.auth-tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    position: relative;
+    color: #666;
+    transition: color 0.3s;
+}
+
+.auth-tab:after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--global-palette1, #000);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+
+.auth-tab.active {
+    color: var(--global-palette1, #000);
+}
+
+.auth-tab.active:after {
+    transform: scaleX(1);
+}
+
+/* Fix content switching and spacing */
+.auth-content {
+    position: relative;
+}
+
+.auth-content > div {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+.auth-content > div.active {
+    display: block;
+    opacity: 1;
+    position: relative;
+}
+
+/* Remove the rules that might cause spacing issues */
+.auth-modal.active .auth-content > div:first-child {
+    display: none;
+}
+
+.auth-modal.active .auth-content > div.active {
+    display: block;
+}
+
+/* Ensure at least one tab is visible when modal opens */
+.auth-modal.active .auth-content > div:first-child {
+    display: block;
+}
+
+.auth-modal.active .auth-content > div.active {
+    display: block;
+}
+
+/* Style existing login/register links */
+.header_login a,
+.login_box a,
+.register_form_fancy_link,
+a[href*="login"],
+a[href*="register"] {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Form styling */
+.cw-login-form {
+    margin: 0;
+}
+
+.cw-login-form .form-group {
+    margin-bottom: 20px;
+}
+
+.cw-login-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.cw-login-form input[type="text"],
+.cw-login-form input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.cw-login-form button {
+    width: 100%;
+    padding: 10px;
+    background: var(--global-palette1, #000);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cw-login-form button:hover {
+    background: var(--global-palette2, #333);
+}
+
+.form-messages {
+    margin-top: 15px;
+    padding: 10px;
+    display: none;
+}
+
+.form-messages.error {
+    display: block;
+    background: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+.form-messages.success {
+    display: block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+/* Existing form styles integration */
+.auth-modal #fancybox_form {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.auth-modal .login_form_box,
+.auth-modal .register_form_fancy {
+    width: 100%;
+}
+
+.auth-modal .form_title {
+    display: none; /* Hide duplicate title since we have tabs */
+}
+
+.auth-modal .recover_passwd {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.auth-modal .recover_passwd a {
+    color: var(--global-palette1, #000);
+    text-decoration: none;
+}
+
+.auth-modal .register_desc {
+    margin-bottom: 20px;
+    color: var(--global-palette4, #666);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Login form specific styles */
+.auth-modal #login_form {
+    margin: 0;
+}
+
+.auth-modal #login_form .login-username,
+.auth-modal #login_form .login-password {
+    margin-bottom: 15px;
+}
+
+.auth-modal #login_form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.auth-modal #login_form input[type="text"],
+.auth-modal #login_form input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.auth-modal #login_form .login-submit {
+    margin-top: 20px;
+}
+
+.auth-modal #login_form .login-submit input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background: var(--global-palette1, #000);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Gravity Form specific styles */
+.auth-modal .gform_wrapper {
+    margin: 0;
+    margin-top: 0;
+}
+
+.auth-modal .gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]) {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.auth-modal .gform_wrapper .gform_footer input.button, 
+.auth-modal .gform_wrapper .gform_footer input[type=submit] {
+    width: 100%;
+    padding: 10px;
+    background: var(--global-palette1, #000);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.auth-modal .gform_wrapper form {
+    margin-bottom: 0;
+}
+
+/* Error messages */
+.auth-modal .login_error,
+.auth-modal .gform_validation_errors {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+    border-radius: 4px;
+}
+
+/* Social Login Buttons */
+.auth-modal .nsl-container {
+    margin: 20px 0;
+}
+
+.auth-modal .nsl-container-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.auth-modal .register_form_fancy_link2.log_link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.auth-modal .register_form_fancy_link2.log_link a {
+    color: var(--global-palette1, #000);
+    text-decoration: none;
+}
+
+/* Ensure the form fits nicely in the modal */
+/* .auth-modal .auth-modal-content {
+    max-width: 400px;
+    padding: 25px;
+} */
+
+/* Prevent content shift when modal opens - modify to target body instead of html */
+body.modal-open {
+    position: relative;
+    overflow: auto; /* Allow scrolling while modal is open */
+}
+
+.register_form_fancy_link2.reg_link {
+    text-align: center;
+}
+
+.recover_passwd {
+    text-align: center;
+}
+
+/* Client Area Login Form Styles */
+.client-login-container.auth-modal-content {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    margin: 40px auto;
+    max-width: 480px;
+    padding: 40px;
+    border-top: 4px solid var(--global-palette1, #f3570d);
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+}
+
+.client-login-form h2,
+.client-register-form h2 {
+    color: #333;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.login-intro {
+    color: #666;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+/* Input styling for client form */
+.client-login-form .input-wrapper,
+.client-login-form .password-field-wrapper {
+    position: relative;
+}
+
+.client-login-form .input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.client-login-form .input {
+    padding-left: 40px !important;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+    background-color: #f9f9f9;
+}
+
+.client-login-form .input:focus {
+    border-color: var(--global-palette1, #f3570d);
+    box-shadow: 0 0 0 3px rgba(243, 87, 13, 0.1);
+    background-color: #fff;
+}
+
+/* Password field with eye icon for client form */
+.client-login-form .password-field-wrapper .input {
+    padding-right: 40px;
+}
+
+.client-login-form .password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #777;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    z-index: 2;
+}
+
+.client-login-form .password-toggle:hover {
+    color: var(--global-palette1, #f3570d);
+}
+
+/* Remember me styling */
+.client-login-form .login-remember label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+}
+
+.client-login-form .login-remember input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: var(--global-palette1, #f3570d);
+}
+
+/* Submit button styling */
+.client-login-form #client_wp-submit {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--global-palette1, #f3570d);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(243, 87, 13, 0.2);
+}
+
+.client-login-form #client_wp-submit:hover {
+    background-color: #d84c09;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(243, 87, 13, 0.3);
+}
+
+.client-login-form #client_wp-submit:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(243, 87, 13, 0.2);
+}
+
+/* Login links styling */
+.client-login-links {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.client-login-links p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.client-login-links a {
+    color: var(--global-palette1, #f3570d);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.client-login-links a:hover {
+    text-decoration: underline;
+    color: #d84c09;
+}
+
+/* Error message styling */
+.login_error {
+    background-color: #fff5f5;
+    color: #e53e3e;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border-left: 4px solid #e53e3e;
+}
+
+/* Form group spacing */
+.client-login-form .form-group {
+    margin-bottom: 24px;
+}
+
+.client-login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #444;
+    font-size: 15px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 576px) {
+    .client-login-container.auth-modal-content {
+        padding: 25px;
+        margin: 20px auto;
+    }
+    
+    .client-login-form h2 {
+        font-size: 24px;
+    }
+}
+
+/* Social Login Separator */
+.social-login-separator {
+    text-align: center;
+    margin: 25px 0 20px;
+    position: relative;
+}
+
+.social-login-separator:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #e0e0e0;
+    z-index: 0;
+}
+
+.social-login-separator span {
+    display: inline-block;
+    background: #fff;
+    padding: 0 12px;
+    position: relative;
+    z-index: 1;
+    color: #777;
+    font-size: 14px;
+}
+
+/* WordPress Login Social Wrapper */
+.wp-login-social-wrapper {
+    margin-bottom: 25px;
+}
+
+.wp-login-social-wrapper form {
+    display: none; /* Hide the default WordPress login form fields */
+}
+
+.wp-login-social-wrapper .nsl-container-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.wp-login-social-wrapper .nsl-button {
+    border-radius: 6px !important;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.wp-login-social-wrapper .nsl-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Make sure the social icons are properly aligned in case they're inside a form */
+.wp-login-social-wrapper .nsl-container {
+    display: block !important;
+    margin: 0 auto;
+}
+
+.nsl-container-buttons {
+    display: grid !important;
+}
+
+/* Handle cases where WordPress login form fields are still showing */
+.wp-login-social-wrapper label,
+.wp-login-social-wrapper .login-submit,
+.wp-login-social-wrapper .login-remember {
+    display: none !important;
+}
+
+/* Client Registration Form Styles */
+.client-register-form {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.register-intro {
+    color: #666;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+/* Style Gravity Form elements to match login form */
+.client-register-form .gform_wrapper form {
+    margin-bottom: 0;
+}
+
+.client-register-form .gform_wrapper .gform_heading {
+    display: none;
+}
+
+.client-register-form .gform_wrapper .gform_body {
+    margin-bottom: 20px;
+}
+
+.client-register-form .gform_wrapper .gfield {
+    margin-bottom: 20px;
+}
+
+.client-register-form .gform_wrapper .gfield_label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #444;
+    font-size: 15px;
+}
+
+.client-register-form .gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]) {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #f9f9f9;
+}
+
+.client-register-form .gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]):focus {
+    border-color: var(--global-palette1, #f3570d);
+    box-shadow: 0 0 0 3px rgba(243, 87, 13, 0.1);
+    outline: none;
+    background-color: #fff;
+}
+
+.client-register-form .gform_wrapper textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #f9f9f9;
+}
+
+.client-register-form .gform_wrapper textarea:focus {
+    border-color: var(--global-palette1, #f3570d);
+    box-shadow: 0 0 0 3px rgba(243, 87, 13, 0.1);
+    outline: none;
+    background-color: #fff;
+}
+
+.client-register-form .gform_wrapper .gform_footer {
+    padding: 0;
+    margin: 20px 0 0;
+}
+
+.client-register-form .gform_wrapper .gform_footer input.button, 
+.client-register-form .gform_wrapper .gform_footer input[type=submit] {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--global-palette1, #f3570d);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(243, 87, 13, 0.2);
+}
+
+.client-register-form .gform_wrapper .gform_footer input.button:hover, 
+.client-register-form .gform_wrapper .gform_footer input[type=submit]:hover {
+    background-color: #d84c09;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(243, 87, 13, 0.3);
+}
+
+.client-register-form .gform_wrapper .gform_footer input.button:active, 
+.client-register-form .gform_wrapper .gform_footer input[type=submit]:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(243, 87, 13, 0.2);
+}
+
+/* Validation styles */
+.client-register-form .gform_wrapper .gfield_required {
+    color: var(--global-palette1, #f3570d);
+}
+
+.client-register-form .gform_wrapper .validation_message {
+    color: #e53e3e;
+    font-size: 13px;
+    padding-top: 5px;
+}
+
+.client-register-form .gform_wrapper .gform_validation_errors {
+    background-color: #fff5f5;
+    color: #e53e3e;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border-left: 4px solid #e53e3e;
+}
+
+/* Animation for form switching */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.error-message {
+    background-color: #fff5f5;
+    color: #e53e3e;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border-left: 4px solid #e53e3e;
+    text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .client-register-form .gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]),
+    .client-register-form .gform_wrapper textarea {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+    
+    .client-register-form .gform_wrapper .gform_footer input.button, 
+    .client-register-form .gform_wrapper .gform_footer input[type=submit] {
+        padding: 12px;
+        font-size: 15px;
+    }
+}
+
+/* Client Area Layout - 80% content / 20% sidebar */
+.client-area-wrapper {
+    padding: 40px 0;
+}
+
+.client-main-content {
+    flex: 1;
+    flex-basis: calc(70% - 15px);
+    min-width: 0; /* Prevent flex items from overflowing */
+}
+
+.client-sidebar {
+    flex-basis: calc(30% - 15px);
+    min-width: 250px;
+}
+
+.sidebar-inner {
+    position: sticky;
+    top: 20px;
+}
+
+.sidebar-widget {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.sidebar-widget h3 {
+    color: #333;
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.client-resources-list,
+.latest-posts-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.client-resources-list li,
+.latest-posts-list li {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #eee;
+}
+
+.client-resources-list li:last-child,
+.latest-posts-list li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.client-resources-list a,
+.latest-posts-list a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: block;
+}
+
+.client-resources-list a:hover,
+.latest-posts-list a:hover {
+    color: var(--global-palette1, #f3570d);
+}
+
+.client-resources-list i {
+    margin-right: 8px;
+    color: var(--global-palette1, #f3570d);
+}
+
+.contact-info p {
+    margin: 0 0 10px;
+    color: #555;
+}
+
+.contact-info i {
+    width: 20px;
+    margin-right: 8px;
+    color: var(--global-palette1, #f3570d);
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 960px) {
+    .client-content-layout {
+        flex-direction: column;
+    }
+    
+    .client-main-content,
+    .client-sidebar {
+        flex-basis: 100%;
+    }
+    
+    .client-sidebar {
+        order: 2; /* Move sidebar below main content on mobile */
+    }
+}
+
+/* Adjustments for client login container in the new layout */
+.client-login-container.auth-modal-content {
+    margin: 0 0 50px 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Client area container for logged in users */
+.client-area-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.client-dashboard {
+    margin-top: 20px;
+}
+
+/* Maintain consistent form container height */
+.client-form-container {
+    min-height: 580px;
+    position: relative;
+}
+
+.client-login-form,
+.client-register-form {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    width: 100%;
+}
+
+.client-login-form[style*="display: none"],
+.client-register-form[style*="display: none"] {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.client-register-form[style*="display: block"] {
+    opacity: 1;
+}
+
+.dashicons, .dashicons-before:before {
+    color: rgba(17, 35, 55, 0.65);
+}
+.form-siderbar-content{
+    display: flex;
+    gap: 50px;
+}
+
+/* Client Area Layout - specific for logged-in and logged-out states */
+.client-area-wrapper {
+    padding: 40px 0;
+}
+
+.client-content-layout {
+    display: flex;
+    margin: 0 auto;
+    max-width: 1200px;
+    gap: 30px;
+}
+
+/* Login/registration form for non-logged in users */
+body:not(.logged-in) .client-main-content {
+    flex-basis: 60%;
+    min-width: 0; /* Prevent flex items from overflowing */
+}
+
+body:not(.logged-in) .client-sidebar {
+    flex-basis: 40%;
+    min-width: 250px;
+}
+
+/* Logged in client area with 70/30 split */
+body.logged-in .client-main-content {
+    flex-basis: 75%;
+    min-width: 0;
+}
+
+body.logged-in .client-sidebar {
+    flex-basis: 25%;
+    min-width: 250px;
+}
+
+button.gform_show_password.gform-theme-button.gform-theme-button--simple span.dashicons.dashicons-hidden::before {
+    display: contents;
+}
+
+
+.gform_fields.top_label.form_sublabel_below.description_below.validation_below{
+    display: unset;
+}
+
+/* Enhanced Mobile Responsiveness for Client Area */
+@media (max-width: 768px) {
+    /* Layout adjustments */
+    .client-content-layout {
+        flex-direction: column;
+        padding: 0 15px;
+    }
+    
+    .client-main-content,
+    .client-sidebar {
+        flex-basis: 100%;
+        width: 100%;
+    }
+    
+    .client-sidebar {
+        margin-top: 30px;
+    }
+    
+    /* Form container adjustments */
+    .client-login-container.auth-modal-content {
+        padding: 25px 20px;
+        margin: 20px 0;
+        max-width: 100%;
+    }
+    
+    /* Form adjustments */
+    .client-form-container {
+        min-height: auto;
+        padding: 0;
+    }
+    
+    /* Remove flex display for form sidebar content on mobile */
+    .form-siderbar-content {
+        display: block;
+        gap: 0;
+    }
+    
+    /* Form adjustments */
+    .client-form-container {
+        min-height: auto;
+    }
+    
+    .client-login-form h2,
+    .client-register-form h2 {
+        font-size: 22px;
+        margin-bottom: 8px;
+    }
+    
+    .login-intro,
+    .register-intro {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    
+    /* Input field adjustments */
+    .client-login-form .input,
+    .client-register-form .gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]),
+    .client-register-form .gform_wrapper textarea {
+        font-size: 16px; /* Prevents iOS zoom on focus */
+        padding: 10px 15px;
+    }
+    
+    .client-login-form .input-icon {
+        left: 10px;
+    }
+    
+    .client-login-form .input {
+        padding-left: 35px !important;
+    }
+    
+    /* Button adjustments */
+    .client-login-form #client_wp-submit,
+    .client-register-form .gform_wrapper .gform_footer input.button,
+    .client-register-form .gform_wrapper .gform_footer input[type=submit] {
+        padding: 12px;
+        font-size: 15px;
+    }
+    
+    /* Social login adjustments */
+    .wp-login-social-wrapper .nsl-container-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    /* Links adjustments */
+    .client-login-links {
+        margin-top: 20px;
+    }
+    
+    .client-login-links p {
+        margin: 6px 0;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    /* Tighter spacing */
+    .client-login-container.auth-modal-content {
+        padding: 20px 15px;
+        margin: 10px 0;
+    }
+    
+    .client-login-form .form-group {
+        margin-bottom: 16px;
+    }
+    
+    .client-login-form label,
+    .client-register-form .gform_wrapper .gfield_label {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+    
+    /* Sidebar adjustments */
+    .sidebar-widget {
+        padding: 15px;
+    }
+    
+    .sidebar-widget h3 {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+    
+    /* Smaller text for better mobile reading */
+    .social-login-separator span {
+        font-size: 12px;
+    }
+    
+    /* Fix scrolling issues */
+    .client-form-container {
+        overflow: visible;
+    }
+    
+    /* Prevent content overflow */
+    .client-register-form .gform_wrapper .ginput_container {
+        overflow-x: hidden;
+    }
+    .dashicons-hidden:before {
+        position: absolute;
+        top: 12px;
+    }
+}
+
+/* Login error message styling */
+.login-error-message {
+    margin-bottom: 20px;
+}
+
+.login-error-message .login_error {
+    background-color: #fff5f5;
+    color: #e53e3e;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    border-left: 4px solid #e53e3e;
+    animation: fadeIn 0.3s ease;
+    margin: 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}

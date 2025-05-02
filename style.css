@@ -1,0 +1,206 @@
+/*!
+Theme Name: Kadence Child
+Theme URI: https://www.kadencewp.com/kadence-theme/
+Template: kadence
+Author: bcat WP
+Author URI: https://www.kadencewp.com/
+Description: A child theme for the Kadence Theme.
+Version: 1.1.2
+License: GNU General Public License v3.0 (or later)
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Text Domain: kadence-child
+*/
+
+/* Theme customization starts here
+-------------------------------------------------------------- */
+:root{--theme-color1:#F79942;--theme-color2:#EFEFEF ;--theme-color3:#F8F6F1;--theme-color4: #e7e7e7;}
+
+
+
+.floating-gtranslate:hover {
+    cursor: pointer;  /* Optional: changes the cursor on hover */
+}
+
+/* .pciwgas-img-wrapper img {
+    border-radius: 100% !important;
+	border: 1px solid #ccc;
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+} */
+/*filter function css date*/
+.date-range-filter {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.date-range-filter label {
+    padding: 10px;
+}
+
+.date-range-filter input[type="date"] {
+    flex-grow: 1;
+    height: 36px;
+}
+
+@media (max-width: 768px) {
+    .date-range-filter {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .date-range-filter input[type="date"] {
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 10px;
+    }
+
+    
+
+    .date-range-filter input[type="date"] {
+        appearance: textfield;
+    }
+}
+
+/* css for change password from */
+.change-password-form {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 50px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.change-password-form h3 {
+    text-align: center;
+    color: #333;
+}
+.change-password-form .form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.change-password-form label {
+    flex-basis: 40%;
+    margin-right: 10px;
+}
+.change-password-form input[type="password"] {
+    flex-basis: 60%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.change-password-form .error {
+    color: #d63638;
+    margin-bottom: 15px;
+}
+.change-password-form .description {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+}
+.change-password-form .change-password-submit {
+    text-align: center;
+}
+.change-password-form input[type="submit"] {
+    background-color: #f76a0c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+.change-password-form input[type="submit"]:hover {
+    background-color: #005177;
+}
+/*icon css ashish*/
+.tender-icons {
+    display: flex;
+}
+.tender-alerticons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    padding-left: 10px;
+}
+
+.tender-alerticons img {
+    display: block;
+    margin-right: 15px;
+}
+
+.tender-alerticons img:last-child {
+    margin-right: 0;
+}
+
+.register-form-container input#gform_submit_button_25 {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--global-palette1, #f3570d);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(243, 87, 13, 0.2);
+    line-height: 1.6;
+}
+
+.sign-up-information {
+    margin-top: 50px;
+}
+
+.header_flags img {
+  	margin-right: 10px;
+  	border-radius: 50%;         
+  	transition: transform 0.3s ease, box-shadow 0.3s ease; 
+  	cursor: pointer;
+}
+
+.header_flags img:hover {
+  	transform: scale(1.2);
+  	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Optional: subtle shadow on hover */
+}
+
+.widget-area .flex-boxes a {
+	color: #f79942 !important;
+}
+
+
+/* Default (Mobile and small screens) */
+.pciwgas-cat-wrap.grid-cols.grid-sm-col-2.grid-lg-col-4.wine-design.countries.pciwgas-design-1 {
+    column-gap: 0.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columns for small screens */
+}
+
+/* Medium screens (e.g., Tablets) */
+@media (min-width: 768px) {
+    .pciwgas-cat-wrap.grid-cols.grid-sm-col-2.grid-lg-col-4.wine-design.countries.pciwgas-design-1 {
+        grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 columns for medium screens */
+    }
+}
+
+/* Large screens (Desktop and above) */
+@media (min-width: 1024px) {
+    .pciwgas-cat-wrap.grid-cols.grid-sm-col-2.grid-lg-col-4.wine-design.countries.pciwgas-design-1 {
+        grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 columns for large screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .pciwgas-cat-wrap.countries .pciwgas-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

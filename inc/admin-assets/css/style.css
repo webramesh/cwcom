@@ -1,0 +1,45 @@
+#repeatable-fieldset-one:not(.page_tenders-for-country) {
+    display:none !important;
+}
+
+.repeatable_q > div {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex: 100%;
+}
+
+.repeatable_q {
+    margin: 20px 0;
+}
+
+#repeatable-fieldset-one > .tr {
+    background: hsla(0,0%,94%,.3);
+    border: 1px solid hsla(39,31%,59%,.3);
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.repeatable_q_value span {
+    padding: 0 10px;
+}
+.td .link {color: red; font-size: calc(10px + 0.5vw); padding: 0 0 0 10px; }
+
+.wrap-group {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+.wrap-elem {
+	max-width: 700px;
+	width: 100%;	
+}

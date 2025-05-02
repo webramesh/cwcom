@@ -1,0 +1,294 @@
+ @media only screen and (max-width: 767px) {
+.subscribe-form .groupRow, .subscribe-form__register_group {
+    flex-wrap: wrap !important;
+}
+
+.subscribe-form__register_group .subscribe-form__group,
+.subscribe-form .groupRow > div,
+.subscribe-form .groupRow.region_active > div {
+  width:100%;
+}
+
+.subscribe-form .subscribe-form__group button {
+    width: 100%;
+}
+
+.subscribe-form__group label {
+    width: 50%;
+}
+
+.subscribe-form__group .subscribe-form__group-value {
+    width: 50%;
+}
+
+.subscribe-form .groupRow > div {
+  text-align:left !important;
+}
+
+.subscribe-form__remove_line__button:before {
+  right:-10px !important;
+}
+}
+
+@media only screen and (min-width: 610px) and (max-width: 1200px)  {
+.subscribe-form__subscribes .groupRow > div {
+    display: block !important;
+}
+}
+
+.tenders .tender-item {
+  position: relative;
+}
+
+.subscribe-form h2 {
+    text-align: center;
+}
+
+.subscribe_title {
+    margin:20px 0;
+}
+
+.subscribe-form .groupRow {
+    display: flex;
+    justify-content: flex-start;
+    margin: 20px 0;
+    flex-wrap: nowrap;
+    position:relative;
+}
+ .subscribe-form .subscribe-form__subscribes .groupRow {
+     flex-wrap: wrap;
+ }
+.subscribe-form .groupRow .subscribe-form__group select, .subscribe-form .groupRow .ajaxTenderRegions select {
+    width: 100%;
+}
+
+.subscribe-form .subscribe-form__group, .ajaxTenderRegions {
+    text-align: center;
+}
+
+.subscribe-form__add_line {
+    margin: 0 10px;
+}
+
+.subscribe-form__group button {
+    width: 30%;
+}
+
+.subscribe-form__add_line button {
+    background: transparent;
+    color: var(--global-palette-btn-bg);
+    border-bottom: 1px dashed var(--global-palette-btn-bg);
+    border-radius: 0;
+    padding: 0;
+}
+
+.subscribe-form .subscribe-form__add_line button:hover,
+.subscribe-form .subscribe-form__add_line button:active,
+.subscribe-form .subscribe-form__add_line button:focus {
+    background: transparent;
+    color: var(--global-palette-btn-bg);
+}
+
+.subscribe-form__register_group {
+    display: flex;
+    justify-content: center;
+}
+
+.subscribe-form__register_group .subscribe-form__group {
+    text-align: center;
+    flex-direction: column;
+    display: flex;
+    margin: 0 10px;
+}
+
+.tender-item {
+    position: relative;
+}
+
+.favorite_tender {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.single-tenders .favorite_tender {
+    right: -30px;
+}
+
+.treaking-tender-form__title {
+  display: none;
+}
+
+#treaking-form-tender {
+    visibility:hidden;
+}
+
+.treaking-form__group label {
+    font-size: 35px;
+    margin-top: 0;
+    cursor: pointer;
+    color: rgb(247 196 148 / 42%);
+}
+
+#treaking-form-tender:checked + label {
+    color:#f79942;
+}
+
+.treaking-tender-form .subscribe-form__message.message {
+    position: absolute;
+    bottom:-5px;
+    opacity:0.8;
+    right: 0;
+    width: 150px;
+    font-size: 12px;
+    display:none;
+}
+
+.subscribe-form__remove_line__button, .subscribe-form__remove_line__button:hover, .subscribe-form__remove_line__button:active, .subscribe-form__remove_line__button:focus {
+    font-size: 0;
+    background: transparent;
+}
+
+.subscribe-form__remove_line__button:before {
+    content: 'x';
+    display: flex;
+    margin-top: 0;
+    font-size: 20px;
+    color: var(--wp--preset--color--vivid-red);
+    font-family:monospace;
+    position: absolute;
+    right: 0;
+    top: -5px;
+}
+
+.subscribe-form .subscribe-form__register_group input {
+    margin: 0 !important;
+    padding: 5px !important;
+}
+
+.favorite_tender.treaking-active label {
+    color: #f79942;;
+}
+
+.preload > .groupRow:nth-child(1):before {
+    content: " ";
+    position: absolute;
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #ccc;
+    border-color: #ccc transparent #ccc transparent;
+    animation: preload 1.2s linear infinite;
+}
+
+@keyframes preload {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.groupRow.region_active > div {
+    width: 25%;
+}
+
+.region_active .ajaxTenderRegions > div {
+    width: auto;
+}
+
+.treaking_area #archive_tender .favorite_tender {
+    display: block !important;
+}
+
+#archive_tender .favorite_tender {
+    display: none !important;
+}
+
+ .subscribe-form .groupRow .mr-0 {
+     margin-right: 0px;
+ }
+ .subscribe-form .groupRow .ml-0 {
+     margin-left: 0px;
+ }
+
+ .subscribe-form .ajaxTenderRegions > div {
+    text-align:left;
+ }
+ .subscribe-form__subscribes-excerpt {
+     text-align: center;
+ }
+
+#subscribe_tender_main .subscribeTenderForm .groupRow {
+    justify-content: center;
+}
+
+.subscribe-form__subscribes .groupRow > div {
+    display: flex;
+}
+
+.ajaxSubscribesUser label:after {
+    content: ':';
+}
+
+.ajaxSubscribesUser .subscribe-form__group-value {
+    font-weight: 600;
+    margin: 0 10px;
+}
+
+.subscribe-form__subscribes .groupRow {
+    border-bottom: 1px solid var(--global-palette7);
+}
+
+.ajaxSubscribesUser label {
+    color: #888;
+}
+
+  #gform_confirmation_message_7 {
+      text-align: left;
+  }
+
+.subscribeTenderForm .groupRow>div:not(.ajaxTenderRegions),
+.ajaxTenderRegions>div {
+    margin: 0 10px !important;
+}
+/**
+ * Multiselect
+ */
+ .ms-options-wrap > button:focus,
+ .ms-options-wrap > button {
+    width: 100%;
+    border: 1px solid var(--global-gray-400);
+    border-radius: 0;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 1.4;
+    font-family: var(--global-body-font-family);
+    color: var(--global-palette4);
+    height: 33px;
+    padding: 0.2em 35px 0.2em 0.5em;
+    margin-top: 0px;
+}
+ .ms-options-wrap > button:hover {
+     background: none;
+ }
+ .ms-options-wrap > button:after {
+     border: 2px solid grey;
+     width: 10px;
+     height: 10px;
+     border-top: none;
+     border-right: none;
+     transform: rotate(-45deg);
+     right: 8px;
+     opacity: 0.5;
+     margin-top: -7px;
+ }
+
+.subscribe-form__remove_line__button {
+    position: absolute;
+    right: 0;
+}

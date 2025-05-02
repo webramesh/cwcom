@@ -1,0 +1,604 @@
+.single-content {
+  h1.tender-general-block {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 2px solid var(--global-palette7);
+    justify-content: space-between;
+    padding: 20px 0;
+    color: var(--global-palette1);
+    margin: 0;
+
+    .tender-block__col:first-child {
+      padding: 0 20px 0 0;
+    }
+  }
+.tender-requirements-block {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+.requirements-block__title {
+  border-bottom: 2px solid var(--global-palette7);
+  padding-bottom: 15px;
+  display: block;
+}
+#apply-for-tender {
+  margin-top: 20px;
+}
+.responsive-tabs {
+  .tabcontent.responsive-tabs__panel--active {
+    background: #f7f7f7;
+    border-width: 3px;
+  }
+  ul.responsive-tabs__list[role=tablist] {
+     margin: 0;}
+  li.responsive-tabs__list__item.responsive-tabs__list__item--active,
+  li.responsive-tabs__list__item.responsive-tabs__list__item--active:hover{
+    background: #b7a1774d;
+    color: var(--global-palette4);
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid rgba(183, 161, 119, 0.3);
+    margin-top: -1px;
+  }
+  li.responsive-tabs__list__item {
+    background: hsla(0, 0%, 94%, .3);
+    border-radius: 10px 10px 0 0;
+    border: 1px solid rgba(183, 161, 119, 0.3);
+    color:var(--global-palette4);
+    border-bottom: 0;
+    font-family: var(--global-body-font-family);
+    font-size: 16px;
+    font-weight: 700;
+      &:hover {
+       background: hsla(0, 0%, 94%, .5);
+      }
+  }
+  @include for-tablet-portrait-down {
+    .tabtitle.responsive-tabs__heading:hover {
+      background: var(--global-palette-btn-bg);
+      color: var(--global-palette-btn);
+     &:after {
+       border-top: 6px solid var(--global-palette-btn);
+       border-bottom:0;
+      }
+    }
+  .tabtitle.responsive-tabs__heading--active,
+  .tabtitle.responsive-tabs__heading--active:hover{
+     color: var(--global-palette-btn);
+    background: var(--global-palette-btn-bg);
+      &:after {
+       border-bottom: 6px solid var(--global-palette-btn);
+       border-top:0;
+     }
+    }
+  }
+}
+}
+
+#apply-for-tender:before {
+  content: '';
+  background: var(--global-palette1) !important;
+  background: -o-radial-gradient(circle, var(--global-palette1) 0, rgba(247, 153, 66, 0) 100%) !important;
+  background: radial-gradient(circle, var(--global-palette1) 0, rgba(247, 153, 66, 0) 100%) !important;
+  border-bottom: 0 !important;
+  border-top-width: 0 !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  height: 1px !important;
+  left: 0 !important;
+  margin-bottom: 30px !important;
+  max-width: 100% !important;
+  position: relative !important;
+  -webkit-transform: none !important;
+  -ms-transform: none !important;
+  transform: none !important;
+  width: 100%;
+  display: block;
+  margin-top: 10px;
+}
+
+.tender_form .gform_wrapper {
+  position: relative;
+}
+
+.tender_form .gf_page_steps{
+  position: absolute;
+  top: 0;
+  text-align: right;
+  border: none !important;
+}
+
+.tender_form .gf_step_label,
+.tender_form .gf_step:not(.gf_step_active) {
+  display: none !important;
+}
+
+.tender_form .gf_step_number:before {
+  content: '0';
+}
+
+.tender_form .gf_step:before {
+  content: 'Step ';
+  font-family: var(--global-heading-font-family);
+  font-size: 20px;
+}
+
+.tender_form .gf_step_number {
+  font-family: var(--global-heading-font-family);
+  font-size: 18px;
+  background: rgba(183, 161, 119, 0.3);
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.tender_form .gform_wrapper .gform_title {
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--global-palette1);
+}
+
+.tender_form .gform_wrapper .gsection_title {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.tender_form .gform_wrapper .gsection {
+  border-color: var(--theme-color4);
+  margin: 0;
+}
+
+.tender-tab__container {
+  position: relative;
+  background: rgb(239 239 239 / 30%);
+  border-radius: 5px;
+}
+
+.tender_form .gform_wrapper .gform_heading {
+  padding: 0 20px;
+}
+
+.tender_form .gform_wrapper .gform_heading .gform_description {
+  display: none;
+}
+
+.tender_form .gform_wrapper .gform_heading {
+  padding: 0 20px;
+}
+
+.tender_form .gform_wrapper .gform-body {
+  padding: 0 20px;
+}
+
+.tender_form .gform_wrapper input,
+.tender_form .gform_wrapper select,
+.tender_form .gform_wrapper textarea {
+  border-color: var(--theme-color4);
+  padding: 8px 15px;
+}
+
+.tender_form .gform_wrapper input[type=radio] {
+  display: none !important;
+}
+
+.tender_form .gform_wrapper input[type=radio]+*::before {
+  content: "";
+  display: inline-block;
+  vertical-align: bottom;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 0.1rem;
+  border-color: gray;
+}
+
+.tender_form .gform_wrapper .gchoice label {
+  display: flex !important;
+  align-items: center;
+}
+
+.tender_form .gform_wrapper .gchoice input[type="radio"]:checked~label::before {
+  background: radial-gradient(var(--global-palette1) 0%, var(--global-palette1) 40%, transparent 50%, transparent);
+  border-color: var(--global-palette1);
+}
+
+.single-tenders .tabcontent {
+  background: transparent !important;
+  border: 0 !important;
+  margin: 0;
+  padding: 0 !important;
+}
+
+.tender_form .gform_wrapper .gfield_description {
+  color: #646464;
+}
+
+#field_4_70 {
+  padding: 10px 0;
+}
+
+#field_4_70 {
+  padding: 10px 0;
+  border-top: 1px solid var(--theme-color4);
+  border-bottom: 1px solid var(--theme-color4);
+}
+
+#field_4_106 {
+  border-bottom: 1px solid var(--theme-color4);
+  padding: 10px 0;
+}
+
+#field_4_125,
+#field_4_148 {
+  border-top: 1px solid var(--theme-color4);
+  padding: 10px 0;
+}
+
+#input_4_151 {
+  width: 100%;
+}
+
+.tender_form .gform_wrapper .gform_save_link {
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--global-palette4);
+  font-family: var(--global-heading-font-family);
+}
+
+.tender_form .gform_wrapper .gform_page_footer {
+  padding-bottom: 20px;
+}
+
+.title_p label {
+  width: 80%;
+}
+
+.gform_wrapper.gform_legacy_markup_wrapper .form_saved_message {
+  background: var(--theme-color2) 0.3;
+  border: none;
+  color: var(--global-palette4);
+  margin: 0;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.gform_wrapper.gform_legacy_markup_wrapper .form_saved_message div.form_saved_message_emailform form input[type=submit] {
+  background: var(--global-palette1);
+  border: none;
+  padding: 10px 15px !important;
+  text-transform: none;
+  border-radius: 5px;
+}
+
+.gform_wrapper.gform_legacy_markup_wrapper .form_saved_message a.resume_form_link {
+  color: var(--global-palette4);
+  text-decoration: underline;
+}
+
+#field_4_148 .ginput_container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.tender_form .gform_wrapper input[type="checkbox"] {
+  accent-color: var(--global-palette1);
+}
+
+.tender_form .gform_wrapper #gfield_consent_description_4_148 {
+  color: var(--global-palette4);
+  background: var(--theme-color4);
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px;
+  max-height: initial;
+  overflow: auto;
+}
+
+#field_4_129 label {
+  min-height: 42px;
+}
+
+#input_4_148_1 {
+  margin: 5px 5px 0 0;
+}
+
+.single-tenders .entry-hero-container-inner .entry-header {
+  align-items: flex-start;
+}
+
+.single-tenders .single-content h1.tender-general-block {
+  border-bottom: none;
+  color: var(--global-palette3);
+  font-size: 40px;
+}
+
+.tender_buttons_top a {
+  background: #FAFAFA;
+  color: var(--global-palette3);
+  border: 1px solid rgba(183, 161, 119, 0.3);
+  border-radius: 3px;
+  font-family: var(--global-body-font-family);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.tender_buttons_top a:hover {
+  background: var(--global-palette1);
+}
+
+.tender-general_title {
+  width: 100%;
+  margin-bottom: 10px;
+  font-family: var(--global-heading-font-family);
+  font-size: 20px;
+}
+
+.tender-market {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.no-tender-mes {
+  font-size: 16px;
+}
+
+.tenders .entry.loop-entry.tender-item {
+  border-radius: 5px;
+  border-color: var(--theme-color4);
+  padding: 10px 20px;
+  box-shadow: none;
+}
+
+.tenders .entry.loop-entry.tender-item:hover {
+  box-shadow: 0px 4px 4px 1px rgb(0 0 0 / 5%);
+  background: transparent;
+}
+
+.tenders .tender-item__content {
+  border-color: var(--theme-color4);
+}
+
+.tenders .tender-item__title {
+  font-family: var(--global-heading-font-family);
+  color: var(--global-palette4);
+  font-size: 20px;
+}
+
+.tenders .tender-item__link {
+  font-family: var(--global-heading-font-family);
+  color: var(--global-palette4);
+  text-decoration: underline;
+}
+
+.tenders .tender-item__link:hover {
+  color: var(--global-palette1);
+}
+
+.tenders.grid-cols {
+  row-gap: 1.5rem;
+}
+
+.tender-general__items {
+  align-items: flex-start;
+}
+
+.tender-item__col dd,
+.tender-item__col dt
+{  line-height: 1.9;
+
+}
+.tender-item__label:before {
+  border-radius: 50%;
+  content: "";
+  margin-right: 10px;
+  padding: 7.5px 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 30px
+}
+.tender_monopoly:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/Group.png) center no-repeat;
+}
+
+.tender_assortment:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/Group1.png) center no-repeat;
+}
+
+.tender_launch_date:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/Group2.png) center no-repeat;
+}
+
+.tender_offer_deadline:before,
+.tender_sample_deadline:before,
+.tender_distribution:before,
+.tender_comment:before,
+.tender_taste_style:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/Calendar.png) center no-repeat;
+}
+
+.tender_content:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/Group3.png) center no-repeat;
+}
+
+.tenders_country:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/Group4.png) center no-repeat;
+}
+
+.tenders_country:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/Group4.png) center no-repeat;
+}
+
+.tenders_type:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/wine-bottle-1.png) center no-repeat;
+}
+
+.tender_wine_ageing:before,
+.tender_alc_volume:before,
+.tender_bulk_price:before,
+.tender_est_volume:before,
+.tender_bottle_closure:before,
+.tender_sugar_lvl:before,
+.tender_start_date:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/Group1.png) center no-repeat;
+}
+
+.tender_image_required:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/image-gallery-1.png) center no-repeat;
+}
+
+.tender_container_type:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/bottle-1.png) center no-repeat;
+}
+
+.tender_container_size:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/Group3-1.png) center no-repeat;
+}
+
+.tender_other_requirements:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/Support_Outline.png) center no-repeat;
+}
+
+.tender_organic:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/Group-1.png) center no-repeat;
+}
+
+.tender_region:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/placeholder-1.png) center no-repeat;
+}
+
+.tender_grape_composition:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/Group1-1.png) center no-repeat;
+}
+
+.tender_vintage:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/back-in-time-1.png) center no-repeat;
+}
+
+.tender_price:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/Group2-1.png) center no-repeat;
+}
+
+.tender_bottles_qty:before {
+  background: #F5F5F5 url(/wpsysfiles/wp-content/uploads/2022/10/liter-1.png) center no-repeat;
+}
+
+#apply-for-tender .tabtitle {
+  font-family: var(--global-body-font-family);
+  font-size: 18px;
+  margin-bottom: 0;
+  background: #b7a1774d;
+  border: 1px solid hsla(39, 31%, 59%, .3);
+  border-radius: 10px 10px 0 0;
+  color: var(--global-palette4);
+  margin-top: -1px;
+  padding: 10px;
+  width: fit-content;
+}
+
+.tender-tab__container {
+  padding: 20px;
+}
+
+.tender-tab__col {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tender-tab__col .tab_item {
+  background: var(--theme-color3);
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  -webkit-flex: 1;
+}
+
+.tender-tab__col .tab_item {
+  margin-bottom: 10px !important;
+}
+
+.tender-tab__col .gform_legacy_markup_wrapper .gform_title {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.tender-tab__col #gform_wrapper_10 .gform_description {
+  font-size: 14px;
+  border-bottom: 1px solid var(--theme-color4);
+  padding-bottom: 10px;
+}
+
+.tender-tab__col .gform_legacy_markup_wrapper input,
+.tender-tab__col .gform_legacy_markup_wrapper textarea {
+  border-color: var(--theme-color4);
+  padding: 8px 15px !important;
+}
+
+#gform_wrapper_10 {
+  width: 100%;
+}
+
+.form_10_wrap_all {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#field_10_5 {
+  width: 66.6%;
+  padding-right: 0 !important;
+}
+
+.form_10_wrap {
+  width: 32%;
+}
+
+.form_10_wrap input {
+  width: 100% !important;
+}
+
+.form_10_wrap li {
+  padding-right: 0 !important;
+}
+
+.form_10_wrap_all textarea {
+  min-height: 125px;
+}
+
+#gform_wrapper_10 .gfield_checkbox li {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+#gform_wrapper_10 .gfield_checkbox li input {
+  margin: 3px 8px 0 0;
+}
+
+#gform_wrapper_10 input[type="checkbox"] {
+  accent-color: var(--global-palette1);
+}
+
+.tab_item div {
+  margin: 5px 0;
+}
+
+.tab_phone a {
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.tab_mail a {
+  color:var(--global-palette4);
+}
+
+.tab_skype a {
+  font-weight: 400;
+}
+
+.tender-item__col {
+  align-items: flex-start;
+}

@@ -1,0 +1,100 @@
+/* Product Ajax Filter*/
+#product-ajax-filer {width: 100%;}
+.filters-panel {
+   margin: 0 0 2rem;  
+   display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+	-webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+/*#product-ajax-filer
+{    background: #fff;
+    position: relative;
+    border: 1px solid var(--global-palette7);
+	border-radius: 10px;
+	box-shadow: 0px 1px 1px 1px rgb(0 0 0 / 18%);}*/
+#product-ajax-filer button {font-size: 15px;     border-radius: 0 0 5px 5px;}
+#product-ajax-filer select{font-size: 16px;    width: 100%;}
+#product-ajax-filer .form-wrap {
+    padding: 10px;
+    border-radius:5px;
+    border: 1px solid  var(--global-palette7);
+	box-shadow: none;
+}
+#product-ajax-filer .filter-head {
+    padding:10px 15% 10px 10px;
+}
+#product-ajax-filer .dropdown-filter-toggle {    
+    position: absolute;
+    top: 15%;
+    right: 10px;}
+#product-ajax-filer .kadence-svg-iconset svg {
+    height: 1.4em;
+    width: 1.4em;
+}
+#product-ajax-filer .button-wrap, #product-ajax-filer .filter-wrap {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+@media (min-width: 768px) {
+    #product-ajax-filer .filter-head,
+    .dropdown-filter-toggle .kadence-svg-iconset {
+        display: none;
+    }
+    #product-ajax-filer .form-wrap {
+        display: block;
+        background: #F8F6F1;
+    }
+    #product-ajax-filer select {
+        width: 220px;
+        margin: 5px;
+    }
+    #product-ajax-filer .filter-wrap {
+        padding-bottom: 10px;
+        justify-content: space-around;}
+    #product-ajax-filer .form-wrap {
+        position: relative;
+    }
+    #product-ajax-filer .button-wrap {
+        border-top: 1px solid #e1e1e1;
+    }
+}
+@media (max-width: 767px) {
+    #product-ajax-filer  select {
+          width: 100%;
+}
+
+    #product-ajax-filer .form-wrap {
+        position: absolute;
+        left: -2px;
+        top: 100%;
+        z-index: 100;
+        background: #fff;
+        border-radius: 0 0 10px 10px;
+        display: none;
+    }
+}  
+
+
