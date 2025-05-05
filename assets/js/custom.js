@@ -93,8 +93,9 @@ jQuery(function($) {
     if (isMobile) {
         $('.header_login').appendTo('#mobile-menu');
         $('.header_logout').appendTo('#mobile-menu');
-        $('.header_flags').appendTo('#mobile-menu');
+        // $('.header_flags').clone().appendTo('#mobile-menu'); // Clone the flags instead of moving them
     }
+    
 
     $('.countries_main .inner-column-1 .pciwgas-pdt-cat-grid:last-child .cat-name').each(function () {
         this.innerHTML = this.innerHTML.replace( /(\s+)(.*)/, '$1<span class="two_word">$2</span>' );
@@ -122,7 +123,7 @@ jQuery(function($) {
 
     $('.tenders__intro .faq_main').appendTo('.tenders_container');
 
-    $('#subs_form #login_form input[name="redirect_to"]').val('https://cw-com.bcat.tech/client-area/my-subscriptions/');
+    $('#subs_form #login_form input[name="redirect_to"]').val('https://www.concealedwines.com/client-area/my-subscriptions/');
 
     var url = new URL(window.location);
     var searchParams = new URLSearchParams(url.search.substring(1));
