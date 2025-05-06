@@ -94,8 +94,15 @@ if (isset($_GET['access'])) {
 				</div>
 			</div>
 		<?php } else { ?>
-			<div class="subscribe_block"><a href="#" class="login-btn"><?php echo __('Log in to subscribe', 'kadence-tenders'); ?></a></div>
-			<div class="button-apply"><a href="#" class="login-btn button type-transparent">Apply for tender</a></div>
+			<div class="login-subscribe-apply-tender">
+				<div class="subscribe_block">
+					<a href="#" class="login-btn"><?php echo __('Log in to subscribe', 'kadence-tenders'); ?></a>
+				</div>
+				<div class="button-apply">
+					<a href="#" class="login-btn button type-transparent">Apply for tender</a>
+				</div>
+			</div>
+
 		<?php } ?>
 
 	<?php
