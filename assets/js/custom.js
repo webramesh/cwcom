@@ -93,7 +93,7 @@ jQuery(function($) {
     if (isMobile) {
         $('.header_login').appendTo('#mobile-menu');
         $('.header_logout').appendTo('#mobile-menu');
-        // $('.header_flags').clone().appendTo('#mobile-menu'); // Clone the flags instead of moving them
+        // $('.header_flags').clone().appendTo('#mobile-menu');
     }
     
 

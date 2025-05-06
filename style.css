@@ -204,3 +204,22 @@ Text Domain: kadence-child
         align-items: center;
     }
 }
+
+.form-siderbar-content{
+    margin-top: 150px;
+}
+
+@media screen and (max-width: 1024px) {
+    header #main-header {
+        display: block;
+        height: 0px !important;
+    }
+}
+
+.login-subscribe-apply-tender {
+    display: flex
+;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+}
