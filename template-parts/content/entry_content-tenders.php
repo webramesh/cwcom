@@ -13,7 +13,7 @@ if (function_exists('get_form_id_by_name')) {
 	$tender_form_id = get_form_id_by_name('Tender Form');
 	$request_tender_form_id = get_form_id_by_name('Request info on Tender');
 }
-/*error_log('Request info on Tender'); error_log(print_r($request_tender_form_id,1)); error_log('Tender Form');error_log(print_r($tender_form_id,1));*/
+/* error_log('Request info on Tender'); error_log(print_r($request_tender_form_id,1)); error_log('Tender Form');error_log(print_r($tender_form_id,1)); */
 $post_id = get_the_ID();
 $tender_ref_number = get_post_meta(get_the_ID(), 'wpcf-tender-reference-number', true);
 $product_country_string = strip_tags(get_the_term_list(get_the_ID(), 'tender-countries', '', ', '));
@@ -65,21 +65,21 @@ $tender_launched_number = get_post_meta(get_the_ID(), 'wpcf-launched-number', tr
 $tender_competition = get_post_meta(get_the_ID(), 'wpcf-tender-competition', true);
 su_query_asset('js', array('popperjs', 'tippy'));
 
-/*echo "tender archive date=".wp_date(get_option('date_format'), $tender_archive_date);*/ 
+/* echo "tender archive date=".wp_date(get_option('date_format'), $tender_archive_date); */
 
 $has_access = false;
 if (isset($_GET['access'])) {
-    $has_access = true;
+	$has_access = true;
 }
 
 ?>
 
 <div class="floating-gtranslate">
-    <?php echo do_shortcode("[gtranslate]"); ?>
+    <?php echo do_shortcode('[gtranslate]'); ?>
 </div>
 
 <div class="<?php echo esc_attr(apply_filters('kadence_entry_content_class', 'entry-content single-content')); ?>">
-	<?php if ($tender_archive_date > time()) : ?>
+	<?php if ($tender_archive_date > time()): ?>
 		<?php if (is_user_logged_in()) { ?>
 			<div class="tender_buttons_top">
 				<div class="tender_buttons_left">
@@ -105,11 +105,8 @@ if (isset($_GET['access'])) {
 
 		<?php } ?>
 
-	<?php
-	endif; ?>
-	<?php do_action('kadence_single_before_entry_content'); ?>
-    
-    
+	<?php endif; ?>
+	<?php do_action('kadence_single_before_entry_content'); ?>  
 
 
 	<h1 class="tender-general-block">
@@ -123,7 +120,7 @@ if (isset($_GET['access'])) {
 	<dl class="tender-general__items">
 		<div class="tender-general_title"><?php echo __('General tender details'); ?></div>
 		<hr>
-		<?php if (!empty($tender_market_string)) : ?>
+		<?php if (!empty($tender_market_string)): ?>
 		 
         <div class="tenders_item">
            <dt class="tender-item__label tender_monopoly" data-tippy-content="Which monopoly distributor.">
@@ -134,7 +131,7 @@ if (isset($_GET['access'])) {
 			</dd>
 		</div>
 		<?php endif; ?>
-		<?php if (!empty($tender_assortment)) : ?>
+		<?php if (!empty($tender_assortment)): ?>
 		<div class="tenders_item">
 			<dt class="tender-item__label tender_assortment" data-tippy-content="Which type of initial contract.">
 				<?php echo __('Assortment:', 'kadence-child'); ?>
@@ -144,7 +141,7 @@ if (isset($_GET['access'])) {
 			</dd>
 		</div>
 		<?php endif; ?>
-		<?php if (!empty($tender_distribution)) : ?>
+		<?php if (!empty($tender_distribution)): ?>
 		<div class="tenders_item">
 			<dt class="tender-item__label tender_distribution" data-tippy-content="How many stores of distribution.">
 				<?php echo __('Distribution:', 'kadence-child'); ?>
@@ -154,47 +151,47 @@ if (isset($_GET['access'])) {
 			</dd>
 		</div>
 		<?php endif; ?>
-		<?php if (!empty($tender_start_date)) : ?>
+		<?php if (!empty($tender_start_date)): ?>
 		<div class="tenders_item">
 		    <dt class="tender-item__label tender_start_date" data-tippy-content="At this stage the tender will become official and more specified">
 				<?php echo __('Tender Start Date:', 'kadence-child'); ?>
 			</dt>
 			<dd class="tender-item__value">
-				<?php echo  wp_date(get_option('date_format'), $tender_start_date); ?>
+				<?php echo wp_date(get_option('date_format'), $tender_start_date); ?>
 			</dd>
 		</div>
 		<?php endif; ?>
-		<?php if (!empty($tender_offer_deadline)) : ?>
+		<?php if (!empty($tender_offer_deadline)): ?>
 		<div class="tenders_item">
 			<dt class="tender-item__label tender_offer_deadline" data-tippy-content="Before this date you have to submit paperwork.">
 				<?php echo __('Deadline written offer:', 'kadence-child'); ?>
 			</dt>
 			<dd class="tender-item__value">
-				<?php echo    wp_date(get_option('date_format'), $tender_offer_deadline); ?>
+				<?php echo wp_date(get_option('date_format'), $tender_offer_deadline); ?>
 			</dd>
 		</div>
 		<?php endif; ?>
-		<?php if (!empty($tender_sample_deadline)) : ?>
+		<?php if (!empty($tender_sample_deadline)): ?>
 		<div class="tenders_item">
 			<dt class="tender-item__label tender_sample_deadline" data-tippy-content="Before this date we will need to have samples in our Stockholm office.">
 				<?php echo __('Deadline Samples:', 'kadence-child'); ?>
 			</dt>
 			<dd class="tender-item__value">
-				<?php echo  wp_date(get_option('date_format'), $tender_sample_deadline); ?>
+				<?php echo wp_date(get_option('date_format'), $tender_sample_deadline); ?>
 			</dd>
 		</div>
 		<?php endif; ?>
-		<?php if (!empty($tender_launch_date)) : ?>
+		<?php if (!empty($tender_launch_date)): ?>
 		<div class="tenders_item">
 		    <dt class="tender-item__label tender_launch_date" data-tippy-content="Expected date the product will be launched in the market.">
 				<?php echo __('Launch Date:', 'kadence-child'); ?>
 			</dt>
 			<dd class="tender-item__value">
-				<?php echo  wp_date(get_option('date_format'), $tender_launch_date); ?>
+				<?php echo wp_date(get_option('date_format'), $tender_launch_date); ?>
 			</dd>
 		</div>
 		<?php endif; ?>
-		<?php if (!empty($tender_comment)) : ?>
+		<?php if (!empty($tender_comment)): ?>
 		<div class="tenders_item">
 			<dt class="tender-item__label tender_comment" data-tippy-content="A comment from the buyer on style profile of product.">
 				<?php echo __('Style/Buyer Comments:', 'kadence-child'); ?>
@@ -204,7 +201,7 @@ if (isset($_GET['access'])) {
 			</dd>
 		</div>
 		<?php endif; ?>
-		<?php if (!empty($tender_taste_style)) : ?>
+		<?php if (!empty($tender_taste_style)): ?>
 		<div class="tenders_item">
 		    <dt class="tender-item__label tender_taste_style" data-tippy-content="The style of what the buyer have in mind, see link for detailed description.">
 				<?php echo __('Taste Style:', 'kadence-child'); ?>
@@ -218,18 +215,18 @@ if (isset($_GET['access'])) {
 		<?php endif; ?>
 	</dl>
 
-	<?php if (!empty(get_the_content())) : ?>
+	<?php if (!empty(get_the_content())): ?>
 		<dl class="tender-general__items single_tender_content">
 			<div class="tender-general_title"><?php echo __('Taste & Style description'); ?></div>
 			<hr>
-		<div class="tenders_item">
-			<dt class="tender-item__label tender_content" data-tippy-content="An explanation of style profile of the product.">
-				<?php echo __('Characteristics:', 'kadence-child'); ?>
-			</dt>
-			<dd class="tender-item__value">
-				<?php echo get_the_content(); ?>
-			</dd>
-		</div>
+			<div class="tenders_item">
+				<dt class="tender-item__label tender_content" data-tippy-content="An explanation of style profile of the product.">
+					<?php echo __('Characteristics:', 'kadence-child'); ?>
+				</dt>
+				<dd class="tender-item__value">
+					<?php echo get_the_content(); ?>
+				</dd>
+			</div>
 		</dl>
 	<?php endif; ?>
 
@@ -247,7 +244,7 @@ if (isset($_GET['access'])) {
 				<dd class="tender-item__value"><?php echo $tender_products_string; ?> </dd>
 			  </div>
 
-				<?php if (!empty($tender_organic)) : ?>
+				<?php if (!empty($tender_organic)): ?>
 				<div class="tenders_item">
 					<dt class="tender-item__label tender_organic" data-tippy-content="We ask for an organic certified product, we need documentation.">
 						<?php echo __('Organic:', 'kadence-tenders'); ?>
@@ -258,7 +255,7 @@ if (isset($_GET['access'])) {
 				</div>
 				<?php endif; ?>
 
-				<?php if (!empty($tender_region)) : ?>
+				<?php if (!empty($tender_region)): ?>
 				<div class="tenders_item">
 					<dt class="tender-item__label tender_region" data-tippy-content="The region/classification of the product.">
 						<?php echo __('Region (Classification):', 'kadence-tenders'); ?>
@@ -269,7 +266,7 @@ if (isset($_GET['access'])) {
 				</div>
 				<?php endif; ?>
 
-				<?php if (!empty($tender_grape_composition)) : ?>
+				<?php if (!empty($tender_grape_composition)): ?>
 				<div class="tenders_item">
 					  <dt class="tender-item__label tender_grape_composition" data-tippy-content="The grape composition of the product.">
 						<?php echo __('Grapes:', 'kadence-tenders'); ?>
@@ -280,7 +277,7 @@ if (isset($_GET['access'])) {
 				</div>
 				<?php endif; ?>
 
-				<?php if (!empty($tender_vintage)) : ?>
+				<?php if (!empty($tender_vintage)): ?>
 				<div class="tenders_item">
 					<dt class="tender-item__label tender_vintage" data-tippy-content="The vintage we ask for.">
 						<?php echo __('Vintage:', 'kadence-tenders'); ?>
@@ -291,91 +288,91 @@ if (isset($_GET['access'])) {
 				</div>
 				<?php endif; ?>
 
-			<div class="tenders_item">
-				<dt class="tender-item__label tender_price" data-tippy-content="The net price we could pay per unit (not per case). Notice that we do not ask for any commission on top of this price!">
-					<?php
-					//$harbour = array();
-					$harbour = get_theme_mod('filter-countries-harbour');
+				<div class="tenders_item">
+					<dt class="tender-item__label tender_price" data-tippy-content="The net price we could pay per unit (not per case). Notice that we do not ask for any commission on top of this price!">
+						<?php
+						// $harbour = array();
+						$harbour = get_theme_mod('filter-countries-harbour');
 
-					$terms =  get_terms(array(
-						'taxonomy'     => array('tender-countries'),
-						'orderby'      => 'name',
-						'order'        => 'DESC',
-						'hide_empty'  => 0,
-						'depth'  => 3,
-						'include'   => $harbour,
-						'hierarchical' => true
-					));
+						$terms = get_terms(array(
+							'taxonomy' => array('tender-countries'),
+							'orderby' => 'name',
+							'order' => 'DESC',
+							'hide_empty' => 0,
+							'depth' => 3,
+							'include' => $harbour,
+							'hierarchical' => true
+						));
 
-					?>
-
-
-
-					<?php
-
-					$termss = wp_get_object_terms($post_id, 'tender-countries', array('orderby' => 'name', 'order' => 'ASC'));
-
-					$global_terms = wp_list_pluck($terms, 'name');
-
-					$curent_terms = get_the_terms($post_id, 'tender-countries');
-					$curent_term = wp_list_pluck($curent_terms, 'name');
-
-					$keys = 'N';
-					foreach ($termss as $key => $value) {
+						?>
 
 
-						if (in_array($value->name, $global_terms)) {
-							$keys = 'Y';
-						} else {
-							$keys = 'N';
-						}
-						$term_key = "";
-						$term_key .= sprintf("%s", $keys);
-					}
-					// fob display instead of ex cellar for countries out of europe ashish 24/9/24 
-    				$fob_countries = [
-    				"Africa (not South Africa)", "Åland", "All", "Any Country", "Any country (not Europé)", "Argentina", 
-                    "Armenia", "Asia", "Asia or European Country", "Australia",
-                    "Barbados", "Bolivia", "Brasil", "Brazil", "California", "Canada", "Cananda", "Canda", "Caribbean", 
-                    "Caribbean Islands", "Central America", "Carribean Islands", 
-                    "central america", "Chile", "china", "Cyprus", "England", 
-                    "Faeroe Islands", "Faroe Islands", "Great Britain", "Georgia", "Greenland", "Greennland", "Groenland", 
-                    "Guadeloupe", "Guatemala", "Guyana", "Iceland", "India", "International", "Island", "Israel", 
-                    "Jamaica", "Japan", "Taiwan", "Kosovo", "Martinique", "Mexico", "Montenegro", "New Zealand", "No defined", 
-                    "not defined", "Not defined yet", "Not Europé", "not France", "not japan or sweden", "Not specified", 
-                    "not yet defined", "NZ", "Other", "Other Countries", "Other country", "Other than Europe", "Others", 
-                    "Peru", "Republic of Macedonia", "Sake", "Scotland", "Serbia", "Several", "Singapore", "South Afirica", 
-                    "South Africa", "South America", "Spirits", "Sri Lanka", "sweden or u.s.a", "Thailand", "Trinidad", 
-                    "Tunisia", "Turkey", "U.S.A", "UK", "United Kingdom", "United States", "Uruguay", "USA", 
-                    "Venezuela", "Wales", "West Indies"
-						];
-					function isFobCountry($product_country_string, $fob_countries) {
-   						 foreach ($fob_countries as $country) {
-       					 if (strpos($product_country_string, $country) !== false) {
-      				      return true; // Return true as soon as any substring match is found
-     					   }
-   							 }
-   						 return false; // Return false if no substring matches are found
+
+						<?php
+
+						$termss = wp_get_object_terms($post_id, 'tender-countries', array('orderby' => 'name', 'order' => 'ASC'));
+
+						$global_terms = wp_list_pluck($terms, 'name');
+
+						$curent_terms = get_the_terms($post_id, 'tender-countries');
+						$curent_term = wp_list_pluck($curent_terms, 'name');
+
+						$keys = 'N';
+						foreach ($termss as $key => $value) {
+							if (in_array($value->name, $global_terms)) {
+								$keys = 'Y';
+							} else {
+								$keys = 'N';
 							}
-					if ($keys != 'N' || isFobCountry($product_country_string, $fob_countries)) {
-    					echo __('FOB Price (Euro €):', 'kadence-child'); // FOB price if any condition is met
-					} else {
-    					echo __('Ex. Cellar Price (Euro €):', 'kadence-child'); // Default cellar price
-					}
-					// if ($term_key != 'N') {
-					// 	echo __('FOB terms (harbour):', 'kadence-child');
-					// } else {
-					// 	echo __('Ex. Cellar Price:', 'kadence-child');
-					// }
+							$term_key = '';
+							$term_key .= sprintf('%s', $keys);
+						}
+						// fob display instead of ex cellar for countries out of europe ashish 24/9/24
+						$fob_countries = [
+							'Africa (not South Africa)', 'Åland', 'All', 'Any Country', 'Any country (not Europé)', 'Argentina',
+							'Armenia', 'Asia', 'Asia or European Country', 'Australia',
+							'Barbados', 'Bolivia', 'Brasil', 'Brazil', 'California', 'Canada', 'Cananda', 'Canda', 'Caribbean',
+							'Caribbean Islands', 'Central America', 'Carribean Islands',
+							'central america', 'Chile', 'china', 'Cyprus', 'England',
+							'Faeroe Islands', 'Faroe Islands', 'Great Britain', 'Georgia', 'Greenland', 'Greennland', 'Groenland',
+							'Guadeloupe', 'Guatemala', 'Guyana', 'Iceland', 'India', 'International', 'Island', 'Israel',
+							'Jamaica', 'Japan', 'Taiwan', 'Kosovo', 'Martinique', 'Mexico', 'Montenegro', 'New Zealand', 'No defined',
+							'not defined', 'Not defined yet', 'Not Europé', 'not France', 'not japan or sweden', 'Not specified',
+							'not yet defined', 'NZ', 'Other', 'Other Countries', 'Other country', 'Other than Europe', 'Others',
+							'Peru', 'Republic of Macedonia', 'Sake', 'Scotland', 'Serbia', 'Several', 'Singapore', 'South Afirica',
+							'South Africa', 'South America', 'Spirits', 'Sri Lanka', 'sweden or u.s.a', 'Thailand', 'Trinidad',
+							'Tunisia', 'Turkey', 'U.S.A', 'UK', 'United Kingdom', 'United States', 'Uruguay', 'USA',
+							'Venezuela', 'Wales', 'West Indies'
+						];
 
+						function isFobCountry($product_country_string, $fob_countries)
+						{
+							foreach ($fob_countries as $country) {
+								if (strpos($product_country_string, $country) !== false) {
+									return true;  // Return true as soon as any substring match is found
+								}
+							}
+							return false;  // Return false if no substring matches are found
+						}
 
-					?>
+						if ($keys != 'N' || isFobCountry($product_country_string, $fob_countries)) {
+							echo __('FOB Price (Euro €):', 'kadence-child');  // FOB price if any condition is met
+						} else {
+							echo __('Ex. Cellar Price (Euro €):', 'kadence-child');  // Default cellar price
+						}
+						// if ($term_key != 'N') {
+						// 	echo __('FOB terms (harbour):', 'kadence-child');
+						// } else {
+						// 	echo __('Ex. Cellar Price:', 'kadence-child');
+						// }
 
-				</dt>
-				<dd class="tender-item__value"><?php echo $tender_price; ?> </dd>
-			</div>
+						?>
 
-				<?php if (!empty($tender_bulk_price)) : ?>
+					</dt>
+					<dd class="tender-item__value"><?php echo $tender_price; ?> </dd>
+				</div>
+
+				<?php if (!empty($tender_bulk_price)): ?>
 				<div class="tenders_item">
 					<dt class="tender-item__label tender_bulk_price" data-tippy-content="The net price ex cellar per litre.">
 						<?php echo __('Bulk Price (per liter):', 'kadence-tenders'); ?>
@@ -386,7 +383,7 @@ if (isset($_GET['access'])) {
 				</div>
 				<?php endif; ?>
 
-				<?php if (!empty($tender_bottles_qty)) : ?>
+				<?php if (!empty($tender_bottles_qty)): ?>
 				<div class="tenders_item">
 					<dt class="tender-item__label tender_bottles_qty" data-tippy-content="The minimum volume we have to state in the offer.">
 						<?php echo __('Minimum Volume:', 'kadence-tenders'); ?>
@@ -396,7 +393,7 @@ if (isset($_GET['access'])) {
 					</dd>
 				</div>
 				<?php endif; ?>
-				<?php if (!empty($tender_est_volume)) : ?>
+				<?php if (!empty($tender_est_volume)): ?>
 				<div class="tenders_item">
 					<dt class="tender-item__label tender_est_volume" data-tippy-content="The estimated volume of the product on a yearly basis.">
 						<?php echo __('Estimated Volume (yearly):', 'kadence-tenders'); ?>
@@ -406,7 +403,7 @@ if (isset($_GET['access'])) {
 					</dd>
 				</div>
 				<?php endif; ?>
-				<?php if (!empty($tender_container_type)) : ?>
+				<?php if (!empty($tender_container_type)): ?>
 				<div class="tenders_item">
 					<dt class="tender-item__label tender_container_type" data-tippy-content="The type of container requested for the product.">
 						<?php echo __('Type of Container:', 'kadence-tenders'); ?>
@@ -416,7 +413,7 @@ if (isset($_GET['access'])) {
 					</dd>
 				</div>
 				<?php endif; ?>
-				<?php if (!empty($tender_container_size)) : ?>
+				<?php if (!empty($tender_container_size)): ?>
 				<div class="tenders_item">
 				  <dt class="tender-item__label tender_container_size" data-tippy-content="The volume of container requested for the product.">
 						<?php echo __('Container Size:', 'kadence-tenders'); ?>
@@ -426,7 +423,7 @@ if (isset($_GET['access'])) {
 					</dd>
 				</div>
 				<?php endif; ?>
-				<?php if (!empty($tender_wine_ageing)) : ?>
+				<?php if (!empty($tender_wine_ageing)): ?>
 				<div class="tenders_item">
 					<dt class="tender-item__label tender_wine_ageing" data-tippy-content="The required ageing.">
 						<?php echo __('Ageing:', 'kadence-tenders'); ?>
@@ -436,7 +433,7 @@ if (isset($_GET['access'])) {
 					</dd>
 				</div>
 				<?php endif; ?>
-				<?php if (!empty($tender_bottle_closure)) : ?>
+				<?php if (!empty($tender_bottle_closure)): ?>
 				<div class="tenders_item">
 					<dt class="tender-item__label tender_bottle_closure" data-tippy-content="The type of closure on the bottle.">
 						<?php echo __('Closure:', 'kadence-tenders'); ?>
@@ -446,7 +443,7 @@ if (isset($_GET['access'])) {
 					</dd>
 				</div>
 				<?php endif; ?>
-				<?php if (!empty($tender_alc_volume)) : ?>
+				<?php if (!empty($tender_alc_volume)): ?>
 				<div class="tenders_item">
 					<dt class="tender-item__label tender_alc_volume" data-tippy-content="The alc. Vol. % of the product.">
 						<?php echo __('Alcohol vol.:', 'kadence-tenders'); ?>
@@ -456,7 +453,7 @@ if (isset($_GET['access'])) {
 					</dd>
 				</div>
 				<?php endif; ?>
-				<?php if (!empty($tender_sugar_lvl)) : ?>
+				<?php if (!empty($tender_sugar_lvl)): ?>
 				<div class="tenders_item">
 					<dt class="tender-item__label tender_sugar_lvl" data-tippy-content="The sugar lever in g/l of the product.">
 						<?php echo __('Sugar level (g/l):', 'kadence-tenders'); ?>
@@ -466,7 +463,7 @@ if (isset($_GET['access'])) {
 					</dd>
 				</div>
 				<?php endif; ?>
-				<?php if (!empty($tender_image_required)) : ?>
+				<?php if (!empty($tender_image_required)): ?>
 				<div class="tenders_item">
 					<dt class="tender-item__label tender_image_required" data-tippy-content="If we have to submit an image to the offer or not.">
 						<?php echo __('Sample Image:', 'kadence-tenders'); ?>
@@ -476,7 +473,7 @@ if (isset($_GET['access'])) {
 					</dd>
 				</div>
 				<?php endif; ?>
-				<?php if (!empty($tender_other_requirements)) : ?>
+				<?php if (!empty($tender_other_requirements)): ?>
 				<div class="tenders_item">
 					<dt class="tender-item__label tender_other_requirements" data-tippy-content="Other criteria the product have to meet.">
 						<?php echo __('Other Requirements:', 'kadence-tenders'); ?>
@@ -484,22 +481,22 @@ if (isset($_GET['access'])) {
 					<dd class="tender-item__value">
 						<ol>
 							<li><?php echo $tender_other_requirements; ?></li>
-							<?php if (!empty($tender_other_requirements2)) : ?>
+							<?php if (!empty($tender_other_requirements2)): ?>
 								<li><?php echo $tender_other_requirements2; ?></li>
 							<?php endif; ?>
-							<?php if (!empty($tender_other_requirements3)) : ?>
+							<?php if (!empty($tender_other_requirements3)): ?>
 								<li><?php echo $tender_other_requirements3; ?></li>
 							<?php endif; ?>
-							<?php if (!empty($tender_other_requirements4)) : ?>
+							<?php if (!empty($tender_other_requirements4)): ?>
 								<li><?php echo $tender_other_requirements4; ?></li>
 							<?php endif; ?>
-							<?php if (!empty($tender_other_requirements5)) : ?>
+							<?php if (!empty($tender_other_requirements5)): ?>
 								<li><?php echo $tender_other_requirements5; ?></li>
 							<?php endif; ?>
-							<?php if (!empty($tender_other_requirements6)) : ?>
+							<?php if (!empty($tender_other_requirements6)): ?>
 								<li><?php echo $tender_other_requirements6; ?></li>
 							<?php endif; ?>
-							<?php if (!empty($tender_other_requirements7)) : ?>
+							<?php if (!empty($tender_other_requirements7)): ?>
 								<li><?php echo $tender_other_requirements7; ?></li>
 							<?php endif; ?>
 						</ol>
@@ -509,14 +506,14 @@ if (isset($_GET['access'])) {
 			</dl>
 		</div>
 		<div>
-			<?php if (has_term('finland-alko', 'tender-market', null)) : ?>
+			<?php if (has_term('finland-alko', 'tender-market', null)): ?>
 				<a href="#wow-modal-id-1" style="font-weight:bold">Click here to learn more about Alko's Green Choice</a>
 				
 			<?php endif; ?>
 			<p>Read about Concealed Wines Code of conduct & CSR Standard <a href="<?php echo get_bloginfo('url'); ?>/summary-csr-strategy-concealed-wines/" target="_blank" rel="noopener noreferrer">here</a>.</p>
 		</div>
 		<div id="apply-for-tender">
-			<?php if (!empty($tender_start_date) && !empty($tender_launch_plan) ) { ?>
+			<?php if (!empty($tender_start_date) && !empty($tender_launch_plan)) { ?>
 			<?php } else { ?>
 				<?php echo do_shortcode('[tabby title="Apply for this Tender"]'); ?>
 
@@ -529,8 +526,7 @@ if (isset($_GET['access'])) {
 							$tender_market_terms = implode(',', $tender_market_terms);
 							$tender_product_terms = wp_get_post_terms('tender-products', array('fields' => 'ids '));
 							$tender_product_terms = implode(',', $tender_product_terms);
-							
-							//echo '<p>Right now the tender form is inactivated. to make offers via contact us on import@concealedwines.com. Alternatively use "Submit interest Request" form and we get back to you.</p>';
+
 							echo do_shortcode('
 								[gravityform
 								id=' . $tender_form_id . '
@@ -543,7 +539,7 @@ if (isset($_GET['access'])) {
 										&tender-ref-num=' . $tender_ref_number . '
 										&tender-market-id=' . $tender_market_terms . '
 										&tender-product-id=' . $tender_product_terms . '"
-							]'); 
+							]');
 						} else {
 							// Show message if deadline has passed
 							echo '<div class="tender-expired-message">';
@@ -555,7 +551,7 @@ if (isset($_GET['access'])) {
 					</div>
 				</div>
 			<?php } ?>
-			<?php if ($tender_archive_date > time()) : ?>
+			<?php if ($tender_archive_date > time()): ?>
 				<?php echo do_shortcode('[tabby title="Submit interest request"]'); ?>
 				<div class="tender-tab__container">
 					<div class="tender-tab__col">
@@ -574,66 +570,66 @@ if (isset($_GET['access'])) {
 					</div>
 					<div class="tender-tab__col request_tender_form">
 						<?php
-						echo do_shortcode('[gravityform id=' . $request_tender_form_id . ' title="true" description="true" field_values="tender-reference=' . $tender_ref_number . '"]'); ?>
+						echo do_shortcode('[gravityform id=' . $request_tender_form_id . ' title="true" description="true" field_values="tender-reference=' . $tender_ref_number . '"]');
+						?>
 					</div>
 				</div>
 
 				<?php echo do_shortcode('[tabbyending]'); ?>
-			<?php else : ?>
+			<?php else: ?>
 				<div class="tender-stats">
-					<h3>Tender Stats</h3>
-					<?php if (!empty($tender_winner)) : ?>
-<dl>
-    <dt>Winner:</dt>
-    <dd><?php echo htmlspecialchars($tender_winner); ?></dd>
-</dl>
-<?php endif; ?>
+					
+					<?php if (!empty($tender_winner)): ?>
+						<h3>Tender Stats</h3>
+						<dl>
+							<dt>Winner:</dt>
+							<dd><?php echo htmlspecialchars($tender_winner); ?></dd>
+						</dl>
+						<?php endif; ?>
 
-<?php if (!empty($tender_winner_company)) : ?>
-<dl>
-    <dt>Winner Company:</dt>
-    <dd><?php echo htmlspecialchars($tender_winner_company); ?></dd>
-</dl>
-<?php endif; ?>
+					<?php if (!empty($tender_winner_company)): ?>
+						<dl>
+							<dt>Winner Company:</dt>
+							<dd><?php echo htmlspecialchars($tender_winner_company); ?></dd>
+						</dl>
+					<?php endif; ?>
 
-<?php if (!empty($tender_score)) : ?>
-<dl>
-    <dt>Score:</dt>
-    <dd><?php echo htmlspecialchars($tender_score) . ' points'; ?></dd>
-</dl>
-<?php endif; ?>
+					<?php if (!empty($tender_score)): ?>
+					<dl>
+						<dt>Score:</dt>
+						<dd><?php echo htmlspecialchars($tender_score) . ' points'; ?></dd>
+					</dl>
+					<?php endif; ?>
 
-<?php if (!empty($tender_competition)) : ?>
-<dl>
-    <dt>Competition:</dt>
-    <dd><?php echo htmlspecialchars($tender_competition) . ' products'; ?></dd>
-</dl>
-<?php endif; ?>
+					<?php if (!empty($tender_competition)): ?>
+					<dl>
+						<dt>Competition:</dt>
+						<dd><?php echo htmlspecialchars($tender_competition) . ' products'; ?></dd>
+					</dl>
+					<?php endif; ?>
 
-<?php if (!empty($tender_launched_number)) : ?>
-<dl>
-    <dt>Launched Number:</dt>
-    <dd><?php echo htmlspecialchars($tender_launched_number); ?></dd>
-</dl>
-<?php endif; ?>
+					<?php if (!empty($tender_launched_number)): ?>
+					<dl>
+						<dt>Launched Number:</dt>
+						<dd><?php echo htmlspecialchars($tender_launched_number); ?></dd>
+					</dl>
+					<?php endif; ?>
 
 				</div>
 
 			<?php endif; ?>
 		</div>
-		<?php
-		wp_link_pages(
+		<?php wp_link_pages(
 			array(
 				'before' => '<div class="page-links">' . esc_html__('Pages:', 'kadence'),
-				'after'  => '</div>',
+				'after' => '</div>',
 			)
 		);
-		do_action('kadence_single_after_entry_content');
-		?>
-	<?php else : ?>
-		<div class="tender_apply_footer"><span><span><?php echo __('Please <a href="#boxzilla-23028">login/register</a> to see more info such as ex works price, volumes & other technical criteria. Once you are logged in your can also propose your products via only submission. It is no cost to register and takes only few minutes.', 'kadence-child'); ?></span></span></div>
+		do_action('kadence_single_after_entry_content'); ?>
+		<?php else: ?>
+		<div class="tender_apply_footer"><span><span><?php echo __('Please <a href="#" class="login-btn">login/register</a> to see more info such as ex works price, volumes & other technical criteria. Once you are logged in your can also propose your products via only submission. It is no cost to register and takes only few minutes.', 'kadence-child'); ?></span></span></div>
 		<div id="apply-for-tender">
-			<?php if ($tender_archive_date > time()) : ?>
+			<?php if ($tender_archive_date > time()): ?>
 				<?php echo do_shortcode('[tabby title="Submit interest request"]'); ?>
 				<div class="tender-tab__container">
 					<div class="tender-tab__col">
@@ -652,53 +648,69 @@ if (isset($_GET['access'])) {
 					</div>
 					<div class="tender-tab__col request_tender_form">
 						<?php
-						echo do_shortcode('[gravityform id=' . $request_tender_form_id . ' title="true" description="true" field_values="tender-reference=' . $tender_ref_number . '"]'); ?>
+						echo do_shortcode('[gravityform id=' . $request_tender_form_id . ' title="true" description="true" field_values="tender-reference=' . $tender_ref_number . '"]');
+						?>
 					</div>
 				</div>
 
 				<?php echo do_shortcode('[tabbyending]'); ?>
-			<?php else : ?>
-				<div class="tender-stats">
-					<h3>Tender Stats</h3>
-					<?php if (!empty($tender_winner)) : ?>
-<dl>
-    <dt>Winner:</dt>
-    <dd><?php echo htmlspecialchars($tender_winner); ?></dd>
-</dl>
-<?php endif; ?>
+				<?php else: ?>
+				<div class="tender-stats">					
+					<?php if (!empty($tender_winner)): ?>
+						<h3>Tender Stats</h3>
+					<dl>
+						<dt>Winner:</dt>
+						<dd><?php echo htmlspecialchars($tender_winner); ?></dd>
+					</dl>
+					<?php endif; ?>
 
-<?php if (!empty($tender_winner_company)) : ?>
-<dl>
-    <dt>Winner Company:</dt>
-    <dd><?php echo htmlspecialchars($tender_winner_company); ?></dd>
-</dl>
-<?php endif; ?>
+					<?php if (!empty($tender_winner_company)): ?>
+					<dl>
+						<dt>Winner Company:</dt>
+						<dd><?php echo htmlspecialchars($tender_winner_company); ?></dd>
+					</dl>
+					<?php endif; ?>
 
-<?php if (!empty($tender_score)) : ?>
-<dl>
-    <dt>Score:</dt>
-    <dd><?php echo htmlspecialchars($tender_score) . ' points'; ?></dd>
-</dl>
-<?php endif; ?>
+					<?php if (!empty($tender_score)): ?>
+					<dl>
+						<dt>Score:</dt>
+						<dd><?php echo htmlspecialchars($tender_score) . ' points'; ?></dd>
+					</dl>
+					<?php endif; ?>
 
-<?php if (!empty($tender_competition)) : ?>
-<dl>
-    <dt>Competition:</dt>
-    <dd><?php echo htmlspecialchars($tender_competition) . ' products' ; ?></dd>
-</dl>
-<?php endif; ?>
+					<?php if (!empty($tender_competition)): ?>
+					<dl>
+						<dt>Competition:</dt>
+						<dd><?php echo htmlspecialchars($tender_competition) . ' products'; ?></dd>
+					</dl>
+					<?php endif; ?>
 
-<?php if (!empty($tender_launched_number)) : ?>
-<dl>
-    <dt>Launched Number:</dt>
-    <dd><?php echo htmlspecialchars($tender_launched_number); ?></dd>
-</dl>
-<?php endif; ?>
+					<?php if (!empty($tender_launched_number)): ?>
+					<dl>
+						<dt>Launched Number:</dt>
+						<dd><?php echo htmlspecialchars($tender_launched_number); ?></dd>
+					</dl>
+					<?php endif; ?>
 
 				</div>
 
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
+
+	<?php
+	// Check if current URL contains '/tender/' and tender offer deadline hasn't passed
+	$current_url = $_SERVER['REQUEST_URI'];
+	$show_modal = (strpos($current_url, '/tenders/') !== false) && (!empty($tender_offer_deadline) && $tender_offer_deadline > time());
+	?>
+	
+	<div class="cw-modal-overlay" id="tender-modal" style="display:<?php echo $show_modal ? 'block' : 'none'; ?>">
+      <div class="cw-modal">
+        <h2>Would you like to discuss this tender in person?</h2>
+        <button class="cw-btn cw-btn-yes" id="tender-yes">Yes</button>
+        <button class="cw-btn cw-btn-no"  id="tender-no">No</button>
+      </div>
+    </div>
+
 </div><!-- .entry-content -->
 

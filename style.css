@@ -216,3 +216,69 @@ Text Domain: kadence-child
     justify-content: flex-end;
     gap: 20px;
 }
+
+.cw-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .cw-modal {
+    background: #fff;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, -50%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+  }
+  
+  .cw-modal h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: var(--global-palette3);
+  }
+  
+  .cw-btn {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .cw-btn:hover {
+    transform: translateY(-2px);
+  }
+  
+  .cw-btn-yes {
+    background-color: var(--global-palette1);
+    color: white;
+  }
+  
+  .cw-btn-yes:hover {
+    background-color: var(--global-palette2);
+  }
+  
+  .cw-btn-no {
+    background-color: #f0f0f0;
+    color: var(--global-palette4);
+  }
+  
+  .cw-btn-no:hover {
+    background-color: #e0e0e0;
+  }
