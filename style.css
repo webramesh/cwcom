@@ -282,3 +282,92 @@ Text Domain: kadence-child
   .cw-btn-no:hover {
     background-color: #e0e0e0;
   }
+
+.sticky-footer-bar {
+    position: fixed; /* Default state: sticky */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between; /* Key change for left/right alignment */
+    align-items: center;
+    z-index: 1030; 
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
+    gap: 15px; 
+}
+
+.sticky-footer-left,
+.sticky-footer-right {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Spacing between items within left/right groups */
+}
+
+.sticky-footer-bar .button,
+.sticky-footer-bar a.button { /* Target <a> tags styled as buttons */
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-family: Comfortaa, cursive;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid transparent; /* Base border for all buttons */
+}
+
+/* Default button appearance (e.g., "Submit Interest", "Apply for Tender" when logged in) */
+.sticky-footer-bar .button {
+    background-color: #f79942; 
+    color: white;
+    border-color: #f79942;
+}
+.sticky-footer-bar .button:hover:not(.disabled) {
+    background-color: #f79942; /* Darker blue on hover */
+    border-color: #f79942;
+}
+
+/* Login buttons styling (e.g., "Login to Subscribe", "Apply for Tender" when logged out) */
+.sticky-footer-bar .button.login-btn {
+    background-color: #f79942; /* Green */
+    border-color: #f79942;
+    color: white;
+}
+.sticky-footer-bar .button.login-btn:hover:not(.disabled) {
+    background-color: #f79942; /* Darker green on hover */
+    border-color: #f79942;
+}
+
+/* Disabled button state */
+.sticky-footer-bar .button.disabled {
+    background-color: #e9ecef; /* Light grey */
+    color: #6c757d; /* Muted text color */
+    border-color: #ced4da; /* Grey border */
+    cursor: not-allowed;
+    /* pointer-events: none; is applied inline via PHP for <a role="button"> */
+}
+/* No hover effect for disabled buttons */
+.sticky-footer-bar .button.disabled:hover {
+    background-color: #e9ecef;
+    color: #6c757d;
+    border-color: #ced4da;
+}
+
+/* Hide elements on mobile devices */
+@media (max-width: 768px) {
+    .sticky-footer-left {
+        display: none !important;
+    }
+
+    /* Adjust the main sticky bar to center the right content when left is hidden */
+    .sticky-footer-bar {
+        justify-content: center;
+    }
+    .sticky-footer-right {
+        flex-grow: 1; 
+        justify-content: end;
+    }
+}

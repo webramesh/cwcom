@@ -210,4 +210,23 @@ jQuery(function($) {
         $(".mess_21").fadeOut();
     });
 
+    // Sticky footer scroll behavior
+    $(window).on('scroll', function() {
+        var footerBar = $('.sticky-footer-bar-container'); // Target the container
+        if (footerBar.length) {
+            var footerBarHeight = footerBar.outerHeight() || 75; 
+            // Check if scrolled to the bottom of the page
+            if ($(window).scrollTop() + $(window).height() >= $(document).height() - footerBarHeight - 50) { 
+                footerBar.hide(); // Hide the footer when at the bottom
+            } else {
+                footerBar.show(); // Show the footer otherwise
+            }
+        }
+    });
+
+    // Print PDF button functionality
+    $('body').on('click', '.print-pdf-button', function(e) {
+        e.preventDefault();
+        window.print();
+    });
 });
