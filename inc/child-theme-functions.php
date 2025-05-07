@@ -503,7 +503,7 @@ function login_forms()
 		<div class="login_form_box">
 			<div class="form_title">' . esc_html__('Sign in', 'kadence-child') . '</div>' . do_shortcode('[loginform]') . '
 		</div>
-		<div class="register_form_fancy_link2 reg_link"><a href="#boxzilla-23010">' . esc_html__('New User Registration', 'kadence-child') . '</a></div>
+		<div class="register_form_fancy_link2 reg_link"><a href="#" class="register-btn">' . esc_html__('New User Registration', 'kadence-child') . '</a></div>
 		<div class="recover_passwd"><a href="/client-area/member-password-lost/">Recover password</a> </div>
 	</div>';
 	return $forms_content;
@@ -524,7 +524,7 @@ if (class_exists('GFAPI')) {
 			<div class="register_desc">' . esc_html__("It is no cost to sign up and directly after you click Register you will get an activation account link to your inbox..", 'kadence-child') . '</div>
 			' . do_shortcode('[gravityform id="' . $register_form_id . '" title="false" description="false"]') . do_shortcode('[nextend_social_login provider="facebook,google"]') . '
 		</div>
-		<div class="register_form_fancy_link2 log_link"><a href="#boxzilla-23028">' . esc_html__('Already registered? Sign in', 'kadence-child') . '</a></div>
+		<div class="register_form_fancy_link2 log_link"><a href="#" class="login-btn">' . esc_html__('Already registered? Sign in', 'kadence-child') . '</a></div>
 		<div class="recover_passwd"><a href="/client-area/member-password-lost/">Recover password</a> </div>
 	</div>';
 	return $forms_content;

@@ -27,7 +27,7 @@ su_query_asset('js', array('popperjs', 'tippy'));
 	?>
 	<div class="favorite_tender">
 		<?php if (!is_user_logged_in()) { ?>
-			<div class="subscribe_block"><a href="#boxzilla-23028"><?php echo __('Log in to subscribe', 'kadence-tenders'); ?></a></div>
+			<div class="subscribe_block"><a href="#" class="login-btn"><?php echo __('Log in to subscribe', 'kadence-tenders'); ?></a></div>
 		<?php } ?>
 		<?php echo do_shortcode('[treaking-tender id="' . get_the_ID() . '"]'); ?>
 	</div>

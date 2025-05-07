@@ -96,6 +96,62 @@ jQuery(function($) {
         // $('.header_flags').clone().appendTo('#mobile-menu');
     }
     
+    // Tender modal functionality with 20-second delay
+    $(document).ready(function() {
+        // Get the modal element
+        var modal = $('#tender-modal');
+        
+        // If modal exists and is meant to be shown (has display:block style)
+        if (modal.length && modal.css('display') === 'block') {
+            // Initially hide it
+            modal.hide();
+            
+            // Show it after 20 seconds
+            setTimeout(function() {
+                modal.fadeIn(500);
+            }, 10000); // 20000 milliseconds = 20 seconds
+        }
+
+        // Yes button - redirect to the "Submit interest request" tab
+        $('#tender-yes').on('click', function() {
+            // Hide the modal
+            modal.fadeOut(300);
+            
+            // Find and click the "Submit interest request" tab
+            var interestTab = $('.responsive-tabs__list__item[aria-controls*="tabpanel"][title="Submit interest request"]');
+            if (interestTab.length) {
+                // Activate the tab
+                interestTab.trigger('click');
+                interestTab.addClass('responsive-tabs__list__item--active').attr('aria-selected', 'true');
+                
+                // Show the tab panel
+                var tabPanelId = interestTab.attr('aria-controls');
+                $('#' + tabPanelId).addClass('responsive-tabs__panel--active').attr('aria-hidden', 'false');
+                
+                // Scroll to the form section
+                $('html, body').animate({
+                    scrollTop: $('#apply-for-tender').offset().top - 100
+                }, 800);
+            } else {
+                // Fallback - just scroll to the section if tab not found
+                $('html, body').animate({
+                    scrollTop: $('#apply-for-tender').offset().top - 100
+                }, 800);
+            }
+        });
+        
+        // No button - simply close the modal
+        $('#tender-no').on('click', function() {
+            modal.fadeOut(300);
+        });
+        
+        // Allow clicking outside the modal to close it
+        $('.cw-modal-overlay').on('click', function(e) {
+            if (e.target === this) {
+                $(this).fadeOut(300);
+            }
+        });
+    });
 
     $('.countries_main .inner-column-1 .pciwgas-pdt-cat-grid:last-child .cat-name').each(function () {
         this.innerHTML = this.innerHTML.replace( /(\s+)(.*)/, '$1<span class="two_word">$2</span>' );
