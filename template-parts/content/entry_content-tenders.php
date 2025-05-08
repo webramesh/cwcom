@@ -633,7 +633,7 @@ if (isset($_GET['access'])) {
 		);
 		do_action('kadence_single_after_entry_content'); ?>
 		<?php else: ?>
-		<div class="tender_apply_footer"><span><span><?php echo __('Please <a href="#" class="login-btn">login/register</a> to see more info such as ex works price, volumes & other technical criteria. Once you are logged in your can also propose your products via only submission. It is no cost to register and takes only few minutes.', 'kadence-child'); ?></span></span></div>
+		<div class="tender_apply_footer"><span><span><?php echo __('Please <a href="#" class="login-btn">login/register</a> to see more info such as ex works price, volumes & other technical criteria. Once you are logged in you can also propose your products via only submission. It is no cost to register and takes only few minutes.', 'kadence-child'); ?></span></span></div>
 		<div id="apply-for-tender">
 			<?php if ($tender_archive_date > time()): ?>
 				<?php echo do_shortcode('[tabby title="Submit interest request"]'); ?>
@@ -761,8 +761,15 @@ if ($tender_archive_date > time()):
 <div class="sticky-footer-bar-container">
     <div class="sticky-footer-bar">
         <div class="sticky-footer-left">
-			<?php echo do_shortcode('[gmptp_button post_id="' . $post_id . '"]'); ?>
+			<?php if (is_user_logged_in()): ?>
+				<?php echo do_shortcode('[gmptp_button post_id="' . $post_id . '"]'); ?>
+			<?php endif; ?>
+			<?php if (!is_user_logged_in()): ?>
+				
+				<p><?php echo __('Please <a href="#" class="login-btn">login/register</a> to see more info and more features.There is no cost to register and takes only few minutes.', 'kadence-child'); ?></p>
+			<?php endif; ?>
         </div>
+		
         <div class="sticky-footer-right">
             <?php if ($show_sticky_apply_button): ?>
                 <a href="<?php echo $is_apply_action_disabled ? '#' : esc_url($apply_button_href); ?>"
@@ -772,11 +779,7 @@ if ($tender_archive_date > time()):
                 </a>
             <?php endif; ?>
 
-            <?php if (!is_user_logged_in()): ?>
-                <a href="#" class="login-btn button">
-                    <?php echo __('Login to Subscribe', 'kadence-tenders'); ?>
-                </a>
-            <?php endif; ?>
+            
 
             <a href="#apply-for-tender" class="button">
                 <?php echo __('Submit Interest', 'kadence-child'); ?>
