@@ -86,7 +86,13 @@ if (isset($_GET['access'])) {
 					<?php echo do_shortcode('[gmptp_button post_id="' . $post_id . '"]'); ?>
 					<?php if (!empty($tender_start_date) && !empty($tender_launch_plan)) { ?>
 					<?php } else { ?>
-						<div class="button-apply"><a href="#apply-for-tender" class="button type-transparent">Apply for tender</a></div>
+						<div class="button-apply">
+							<?php if ($tender_offer_deadline > time()): ?>
+								<a href="#apply-for-tender" class="button type-transparent">Apply for tender</a>
+							<?php else: ?>
+								<a href="#" class="button type-transparent disabled" style="pointer-events:none;">Deadline Passed</a>
+							<?php endif; ?>
+						</div>
 					<?php } ?>
 				</div>
 				<div class="tender_buttons_right">
@@ -544,7 +550,7 @@ if (isset($_GET['access'])) {
 							// Show message if deadline has passed
 							echo '<div class="tender-expired-message">';
 							echo '<p>Sorry, this tender is currently unavailable as the offer deadline has passed.</p>';
-							echo '<p>If you are still interested, please submit the interest form in the next tab.</p>';
+							echo '<p>If you are still interested, please submit the interest request form.</p>';
 							echo '</div>';
 						}
 						?>
@@ -627,7 +633,7 @@ if (isset($_GET['access'])) {
 		);
 		do_action('kadence_single_after_entry_content'); ?>
 		<?php else: ?>
-		<div class="tender_apply_footer"><span><span><?php echo __('Please <a href="#" class="login-btn">login/register</a> to see more info such as ex works price, volumes & other technical criteria. Once you are logged in your can also propose your products via only submission. It is no cost to register and takes only few minutes.', 'kadence-child'); ?></span></span></div>
+		<div class="tender_apply_footer"><span><span><?php echo __('Please <a href="#" class="login-btn">login/register</a> to see more info such as ex works price, volumes & other technical criteria. Once you are logged in you can also propose your products via only submission. It is no cost to register and takes only few minutes.', 'kadence-child'); ?></span></span></div>
 		<div id="apply-for-tender">
 			<?php if ($tender_archive_date > time()): ?>
 				<?php echo do_shortcode('[tabby title="Submit interest request"]'); ?>
@@ -711,6 +717,78 @@ if (isset($_GET['access'])) {
         <button class="cw-btn cw-btn-no"  id="tender-no">No</button>
       </div>
     </div>
+
+<?php
+// Sticky Footer Bar
+if ($tender_archive_date > time()):
+    // Determine state for "Apply for Tender" button
+    $can_apply_deadline = ($tender_offer_deadline > time());
+    $show_sticky_apply_button = false;
+    $apply_button_text = '';
+    $apply_button_href = '#';
+    $apply_button_classes = 'button'; // Base class
+    $is_apply_action_disabled = false; // True if action is disabled (e.g. deadline passed)
+
+    if (is_user_logged_in()) {
+        // For logged-in users, show "Apply for Tender" sticky button
+        // only if the non-gmptp "Apply for tender" link would have been shown at the top.
+        if (empty($tender_start_date) || empty($tender_launch_plan)) {
+            $show_sticky_apply_button = true;
+            if ($can_apply_deadline) {
+                $apply_button_text = __('Apply Tender', 'kadence-child');
+                $apply_button_href = '#apply-for-tender';
+            } else {
+                $apply_button_text = __('Deadline Passed', 'kadence-child');
+                $apply_button_classes .= ' disabled';
+                $is_apply_action_disabled = true;
+            }
+        }
+        // If $tender_start_date and $tender_launch_plan are both set,
+        // the main "apply" action is via [gmptp_button], so we don't show this sticky "Apply for Tender".
+    } else { // Not logged in
+        $show_sticky_apply_button = true;
+        if ($can_apply_deadline) {
+            $apply_button_text = __('Apply Tender', 'kadence-child');
+            $apply_button_href = '#'; // Will be a login trigger via class
+            $apply_button_classes .= ' login-btn';
+        } else {
+            $apply_button_text = __('Deadline Passed', 'kadence-child');
+            $apply_button_classes .= ' disabled';
+            $is_apply_action_disabled = true;
+        }
+    }
+?>
+<div class="sticky-footer-bar-container">
+    <div class="sticky-footer-bar">
+        <div class="sticky-footer-left">
+			<?php if (is_user_logged_in()): ?>
+				<?php echo do_shortcode('[gmptp_button post_id="' . $post_id . '"]'); ?>
+			<?php endif; ?>
+			<?php if (!is_user_logged_in()): ?>
+				
+				<p><?php echo __('Please <a href="#" class="login-btn">login/register</a> to see more info and more features.There is no cost to register and takes only few minutes.', 'kadence-child'); ?></p>
+			<?php endif; ?>
+        </div>
+		
+        <div class="sticky-footer-right">
+            <?php if ($show_sticky_apply_button): ?>
+                <a href="<?php echo $is_apply_action_disabled ? '#' : esc_url($apply_button_href); ?>"
+                   class="<?php echo esc_attr($apply_button_classes); ?>"
+                   <?php if ($is_apply_action_disabled) echo 'aria-disabled="true" style="pointer-events:none;"'; ?>>
+                    <?php echo esc_html($apply_button_text); ?>
+                </a>
+            <?php endif; ?>
+
+            
+
+            <a href="#apply-for-tender" class="button">
+                <?php echo __('Submit Interest', 'kadence-child'); ?>
+            </a>
+        </div>
+    </div>
+</div>
+
+<?php endif; // end of ($tender_archive_date > time()) ?>
 
 </div><!-- .entry-content -->
 
