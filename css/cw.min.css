@@ -1953,7 +1953,7 @@ ol li::marker {
 .single-tenders .single-content h1.tender-general-block {
   border-bottom: none;
   color: var(--global-palette3);
-  font-size: 40px;
+  font-size: 2rem;
 }
 .tender_buttons_top a {
   background: #fafafa;
