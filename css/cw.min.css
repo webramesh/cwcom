@@ -1950,11 +1950,11 @@ ol li::marker {
   -ms-flex-align: start;
   align-items: flex-start;
 }
-.single-tenders .single-content h1.tender-general-block {
+/* .single-tenders .single-content h1.tender-general-block {
   border-bottom: none;
   color: var(--global-palette3);
   font-size: 2rem;
-}
+} */
 .tender_buttons_top a {
   background: #fafafa;
   border: 1px solid hsla(39, 31%, 59%, 0.3);
@@ -2229,4 +2229,9 @@ ol li::marker {
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: flex-start;
+}
+
+.sticky-footer-bar-container  .favorite_tender {
+  position: static;
+  line-height: 0;
 }

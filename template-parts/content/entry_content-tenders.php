@@ -82,7 +82,7 @@ if (isset($_GET['access'])) {
 	<?php if ($tender_archive_date > time()): ?>
 		<?php if (is_user_logged_in()) { ?>
 			<div class="tender_buttons_top">
-				<div class="tender_buttons_left">
+				<!-- <div class="tender_buttons_left">
 					<?php echo do_shortcode('[gmptp_button post_id="' . $post_id . '"]'); ?>
 					<?php if (!empty($tender_start_date) && !empty($tender_launch_plan)) { ?>
 					<?php } else { ?>
@@ -94,20 +94,20 @@ if (isset($_GET['access'])) {
 							<?php endif; ?>
 						</div>
 					<?php } ?>
-				</div>
+				</div> -->
 				<div class="tender_buttons_right">
 					<div class="favorite_tender"><?php echo do_shortcode('[treaking-tender id="' . $post_id . '"]'); ?></div>
 				</div>
 			</div>
 		<?php } else { ?>
-			<div class="login-subscribe-apply-tender">
+			<!-- <div class="login-subscribe-apply-tender">
 				<div class="subscribe_block">
 					<a href="#" class="login-btn"><?php echo __('Log in to subscribe', 'kadence-tenders'); ?></a>
 				</div>
 				<div class="button-apply">
 					<a href="#" class="login-btn button type-transparent">Apply for tender</a>
 				</div>
-			</div>
+			</div> -->
 
 		<?php } ?>
 
@@ -760,15 +760,18 @@ if ($tender_archive_date > time()):
 ?>
 <div class="sticky-footer-bar-container">
     <div class="sticky-footer-bar">
-        <div class="sticky-footer-left">
+		<div class="sticky-footer-left">
 			<?php if (is_user_logged_in()): ?>
 				<?php echo do_shortcode('[gmptp_button post_id="' . $post_id . '"]'); ?>
+				<div class="favorite_tender">
+					<?php echo do_shortcode('[treaking-tender id="' . $post_id . '"]'); ?>
+				</div>
 			<?php endif; ?>
+
 			<?php if (!is_user_logged_in()): ?>
-				
-				<p><?php echo __('Please <a href="#" class="login-btn">login/register</a> to see more info and more features.There is no cost to register and takes only few minutes.', 'kadence-child'); ?></p>
+			<p><?php echo __('Please <a href="#" class="login-btn">login/register</a> to see more info and more features.There is no cost to register and takes only few minutes.', 'kadence-child'); ?></p>
 			<?php endif; ?>
-        </div>
+		</div>
 		
         <div class="sticky-footer-right">
             <?php if ($show_sticky_apply_button): ?>
@@ -777,13 +780,12 @@ if ($tender_archive_date > time()):
                    <?php if ($is_apply_action_disabled) echo 'aria-disabled="true" style="pointer-events:none;"'; ?>>
                     <?php echo esc_html($apply_button_text); ?>
                 </a>
-            <?php endif; ?>
-
-            
+            <?php endif; ?>            
 
             <a href="#apply-for-tender" class="button">
                 <?php echo __('Submit Interest', 'kadence-child'); ?>
             </a>
+
         </div>
     </div>
 </div>
