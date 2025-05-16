@@ -386,7 +386,7 @@ $post_type = get_post_type($post_id);
         <td style="width: 50%; padding: 10px; box-sizing: border-box;">
             <strong>ONLINE SUPPORT</strong>
             <br /><br />
-            <strong>Calle Nilsson </strong>(Skype ID: callenil) <br /> <strong>Email: </strong>calle.nilsson@concealedwines.com
+            <strong>Calle Nilsson </strong>(Teams ID: <a href="https://teams.live.com/l/invite/FEAmanssa6byZH14gU">callenil</a>) <br /> <strong>Email: </strong>calle.nilsson@concealedwines.com
             <br /><br />
             <a href="<?php echo get_the_permalink($post_id); ?>" style="font-weight: bold;">Apply for this tender via online form</a>
         </td>

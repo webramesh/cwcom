@@ -568,10 +568,10 @@ if (isset($_GET['access'])) {
 						</div>
 						<div class="tab_item">
 							<strong>ONLINE SUPPORT Calle Nilsson</strong>
-							<strong>(Skype ID: callenil) </strong>
+							<strong>(Teams ID: <a href="https://teams.live.com/l/invite/FEAmanssa6byZH14gU">callenil</a>) </strong>
 							<div class="tab_mail">Email: <a href="mailto:<?php echo antispambot('calle.nilsson@concealedwines.com') ?>"><?php echo antispambot('calle.nilsson@concealedwines.com') ?></a></div>
 							<div class="tab_skype"><a href="skype:callenil?chat" class="button"><?php echo __('Chat with me'); ?></a></div>
-							<script type="text/javascript" src="https://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
+							<script type="text/javascript" src="https://teams.live.com/l/invite/FEAmanssa6byZH14gU"></script>
 						</div>
 					</div>
 					<div class="tender-tab__col request_tender_form">
@@ -646,7 +646,7 @@ if (isset($_GET['access'])) {
 						</div>
 						<div class="tab_item">
 							<strong>ONLINE SUPPORT Calle Nilsson</strong>
-							<strong>(Skype ID: callenil) </strong>
+							<strong>(Teams ID: <a href="https://teams.live.com/l/invite/FEAmanssa6byZH14gU">callenil</a>) </strong>
 							<div class="tab_mail">Email: <a href="mailto:<?php echo antispambot('calle.nilsson@concealedwines.com') ?>"><?php echo antispambot('calle.nilsson@concealedwines.com') ?></a></div>
 							<div class="tab_skype"><a href="skype:callenil?chat" class="button"><?php echo __('Chat with me'); ?></a></div>
 							<script type="text/javascript" src="https://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>

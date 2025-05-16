@@ -109,7 +109,7 @@ jQuery(function($) {
             // Show it after 20 seconds
             setTimeout(function() {
                 modal.fadeIn(500);
-            }, 10000); // 20000 milliseconds = 20 seconds
+            }, 30000); // 20000 milliseconds = 30 seconds
         }
 
         // Yes button - redirect to the "Submit interest request" tab
