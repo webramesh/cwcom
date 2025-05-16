@@ -412,7 +412,7 @@ info@concealedwines.com
 <br />
 <strong>ONLINE SUPPORT</strong>
 <br />
-<strong>Calle Nilsson (Skype ID: callenil) <br /> Email: calle.nilsson@concealedwines.com</strong>
+<strong>Calle Nilsson (Teams ID: <a href="https://teams.live.com/l/invite/FEAmanssa6byZH14gU">callenil</a>) <br /> Email: calle.nilsson@concealedwines.com</strong>
 </div>
 </div>
 <hr />

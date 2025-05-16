@@ -364,7 +364,7 @@ class AuthModal {
         console.log('- Is on client area:', window.location.pathname.includes('client-area'));
         console.log('- Is logged in:', document.body.classList.contains('logged-in'));
         
-        // Wait 5 seconds before showing modal
+        // Wait 10 seconds before showing modal
         setTimeout(() => {
             // Double check conditions
             if (!this.modalShown && 
@@ -375,7 +375,7 @@ class AuthModal {
                 this.openModal('login');
                 this.modalShown = true;
             }
-        }, 5000); // 5000 milliseconds = 5 seconds
+        }, 15000);
     }
 
     // New method to update client area forms
