@@ -2,9 +2,8 @@
 if ($atts['class']) {
 	$form_wrap_class = $atts['class'] . '"';
 }
-?>
- <div class="form-wrap <?php echo $atts['class'] ? $atts['class'] : ''; ?>">
-   <form action="<?php echo admin_url('admin-post.php');; ?>" method="post" id="filter-shortcode">
+?> <div class="form-wrap <?php echo $atts['class'] ? $atts['class'] : ''; ?>">
+   <form action="<?php echo esc_url(home_url('/' . ($atts['archive-slug'] ?: 'search-tenders'))); ?>" method="get" id="filter-shortcode">
       <div class="shortcode-filter-wrap">
 <?php
 /* tender markets list */
@@ -15,8 +14,7 @@ $markets = explode(',', $str);
 if (!$atts['market'] || count($markets) > 1) {
 	$terms = get_terms_by_post_type('tender-market', 'tenders');
 	if ($terms):
-		?>
-                   <select name="tender-market"><option value=""><?php echo __('All markets', 'kadence-child'); ?> </option>
+		?>                   <select name="market"><option value=""><?php echo __('All markets', 'kadence-child'); ?> </option>
                    <?php
 		foreach ($terms as $term):
 			if (!$atts['market'] || in_array($term->term_id, $markets)) {
@@ -27,7 +25,7 @@ if (!$atts['market'] || count($markets) > 1) {
 	endif; ?>
                     </select>
    <?php } elseif (count($markets) === 1) { ?>
-             <input type="hidden" name="tender-market" value="<?php echo $atts['market']; ?>">
+             <input type="hidden" name="market" value="<?php echo $atts['market']; ?>">
    <?php }
 
 /* Country list */
@@ -43,11 +41,11 @@ if (empty($countries)) {
 	$chosen_countries = get_theme_mod('filter-countries');
 } elseif (count($countries) > 1) {
 	$chosen_countries = $countries;
-} else { ?> <input type="hidden" name="tender-countries" value="<?php echo $atts['country']; ?>"> <?php }
+} else { ?> <input type="hidden" name="country" value="<?php echo $atts['country']; ?>"> <?php }
 
 if (empty($countries) || count($countries) > 1) {
 	if ($terms): ?>
-                     <select name="tender-countries"><option value=""><?php echo __('All countries', 'kadence-child'); ?> </option>
+                     <select name="country"><option value=""><?php echo __('All countries', 'kadence-child'); ?> </option>
                      <?php
 		foreach ($terms as $term):
 			if (empty($chosen_countries) || in_array($term->term_id, $chosen_countries)) {
@@ -72,11 +70,11 @@ if (count($products) === 0) {
 	$chosen_products = get_theme_mod('filter-products');
 } elseif (count($products) > 1) {
 	$chosen_products = $products;
-} else { ?>  <input type="hidden" name="tender-products" value="<?php echo $atts['product']; ?>">
+} else { ?>  <input type="hidden" name="product" value="<?php echo $atts['product']; ?>">
 <?php }
 if (count($products) === 0 || count($products) > 1) {
 	if ($terms): ?>
-                   <select name="tender-products"><option value=""><?php echo __('All products', 'kadence-child'); ?> </option>
+                   <select name="product"><option value=""><?php echo __('All products', 'kadence-child'); ?> </option>
                    <?php
 		foreach ($terms as $term):
 			if (empty($chosen_products) || in_array($term->term_id, $chosen_products)) {
@@ -108,13 +106,9 @@ if (!$atts['tender-status'] || count($statuses) > 1) {
    <?php
 }
 /* hidden fields and buttons */
-?>
-
-          <input type="hidden" name="archive-slug" value="<?php echo $atts['archive-slug']; ?>">
-       </div>
+?>       </div>
        <div class="filter button-wrap">
-           <button type ="submit" class="submit button"><?php echo $atts['btntext']; ?> </button>
+           <button type="submit" class="submit button"><?php echo $atts['btntext']; ?> </button>
        </div>
-            <input type="hidden" name="action" value="filter_action">
    </form>
 </div>

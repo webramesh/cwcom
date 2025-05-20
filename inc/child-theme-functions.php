@@ -168,17 +168,18 @@ function current_tenders($query)
 {
 	$tr_query = array();
 
-	if (false !== get_transient('country')) {
-		$tr_query['country'] = get_transient('country');
+	// Get filter values from URL query parameters
+	if (!empty($_GET['country'])) {
+		$tr_query['country'] = $_GET['country'];
 	}
-	if (false !== get_transient('market')) {
-		$tr_query['market'] = get_transient('market');
+	if (!empty($_GET['market'])) {
+		$tr_query['market'] = $_GET['market'];
 	}
-	if (false !== get_transient('product')) {
-		$tr_query['product'] = get_transient('product');
+	if (!empty($_GET['product'])) {
+		$tr_query['product'] = $_GET['product'];
 	}
-	if (false !== get_transient('tender-status')) {
-		$tr_query['tender-status'] = get_transient('tender-status');
+	if (!empty($_GET['tender-status'])) {
+		$tr_query['tender-status'] = $_GET['tender-status'];
 	}
 
 	if ($query->is_main_query() && !$query->is_admin) :

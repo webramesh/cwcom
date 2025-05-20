@@ -6,7 +6,7 @@
 
 		jQuery.ajax({
 			url : loadmore_params.ajaxurl,
-			data : filter.serialize()+'&tender_type='+tender_type, // form data
+			data : filter.serialize()+'&tender_type='+tender_type+'&action=prodfilter', // form data
 			dataType : 'json', // this data type allows us to receive objects from the server
 			type:filter.attr('method'), 
 			beforeSend : function(xhr){
