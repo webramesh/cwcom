@@ -14,6 +14,7 @@ require_once  get_stylesheet_directory() . '/inc/trackandemail.php';
 require_once  get_stylesheet_directory() . '/inc/userdetails.php';
 require_once  get_stylesheet_directory() . '/inc/usertendersubmit.php';
 require_once  get_stylesheet_directory() . '/inc/loginasuser.php';
+require_once  get_stylesheet_directory() . '/inc/tenders-admin-columns.php';
 
 add_action('wp_ajax_loadmorebutton', 'kd_loadmore_ajax_handler');
 add_action('wp_ajax_nopriv_loadmorebutton', 'kd_loadmore_ajax_handler');
