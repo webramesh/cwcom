@@ -98,57 +98,50 @@ class Tender_Subscribe_Subscribes
      */
     protected function get_tenders($tag)
     {
-
-        $curent_time = strtotime(current_time('Y-m-d'));
         $result = [];
 
         $args = [
             'post_type' => 'tenders',
             'posts_per_page' => -1,
+            'date_query' => [ // ADDED: Fetches tenders posted in the last 24 hours
+                [
+                    'after'     => '24 hours ago',
+                    'inclusive' => true,
+                ],
+            ],
         ];
-        $tax_query = [];
 
+        $tax_query = [];
         foreach ( $tag as $child )
         {
-
             if( !empty($child->tag_id ))
             {
                 $tax_query[] = [
                     'taxonomy' => $child->tag_taxonomy,
-                    'field' => 'id',
-                    'terms' => ($child->tag_taxonomy == $this->config['taxonomies']['region']) ? explode(',', $child->tag_id) : [$child->tag_id],
+                    'field'    => 'id',
+                    'terms'    => ($child->tag_taxonomy == $this->config['taxonomies']['region']) ? explode(',', $child->tag_id) : [$child->tag_id],
                 ];
             }
-
         }
 
-        $args['tax_query'] = $tax_query;
+        if (!empty($tax_query)) {
+            $args['tax_query'] = $tax_query;
+        }
 
         /**
          * Get Tenders
          */
+        $query_instance = new WP_Query();
+        $fetched_tenders = $query_instance->query( $args ); // $fetched_tenders is an array of posts
 
-        $tenders = new WP_Query;
-        $tenders = $tenders->query( $args );
-
-        if ( $tenders )
+        if ( $fetched_tenders )
         {
-            foreach( $tenders as $tender )
-            {
-
-                $created = strtotime(date('Y-m-d', strtotime($tender->post_date)));
-
-                if( $created == $curent_time )
-                {
-                    $result[] = $tender;
-                }
-
-            }
-
+            // MODIFIED: Assign all fetched tenders directly, as WP_Query now handles date filtering.
+            // The previous foreach loop with manual date checking has been removed.
+            $result = $fetched_tenders;
         }
 
         return $result;
-
     }
 
     /**
