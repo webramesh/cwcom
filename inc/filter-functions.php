@@ -15,7 +15,7 @@ function true_filter_function() {
     );
 
     // Handling tender type and status
-    if($_POST['tender_type'] && $_POST['tender_type'] === "past-tenders"){
+    if(!empty($_POST['tender_type']) && $_POST['tender_type'] === "past-tenders"){
         $params["meta_query"] = array(
             array(
                 'key'     => 'wpcf-tender-archive-date',
@@ -26,8 +26,8 @@ function true_filter_function() {
         $params["order"] = 'ASC';
         $params["orderby"] = 'meta_value';
         $params["meta_key"] = 'wpcf-tender-archive-date';
-    } elseif ($_POST['tender_type'] && $_POST['tender_type'] === "tenders"){
-        if ($_POST['tender_status'] == 'upcoming'){
+    } elseif (!empty($_POST['tender_type']) && $_POST['tender_type'] === "tenders"){
+        if (!empty($_POST['tender-status']) && $_POST['tender-status'] == 'upcoming'){
             $params["meta_query"] = array(
                 'relation' => 'AND',
                 array(
@@ -44,7 +44,7 @@ function true_filter_function() {
             $params["order"] = 'ASC';
             $params["orderby"] = 'meta_value';
             $params["meta_key"] = 'wpcf-tender-start-date';
-        } elseif ($_POST['tender_status'] == 'closed'){
+        } elseif (!empty($_POST['tender-status']) && $_POST['tender-status'] == 'closed'){
             $params['meta_query'] = array(
                 array(
                     'key'     => 'wpcf-tender-archive-date',
@@ -55,7 +55,7 @@ function true_filter_function() {
             $params['order'] = 'DESC';
             $params["orderby"] = 'meta_value';
             $params["meta_key"] = 'wpcf-tender-archive-date';
-        } elseif ($_POST['tender_status'] == 'current'){
+        } elseif (!empty($_POST['tender-status']) && $_POST['tender-status'] == 'current'){
             $params['meta_query'] = array(
                 'relation' => 'AND',
                 array(
@@ -136,30 +136,30 @@ function true_filter_function() {
     $tax_q2 = array();
     $tax_q = array('relation' => 'AND');
 
-    if($_POST['tender-market']){ 
+    if(!empty($_POST['market'])){ 
         $filter_val++;
         array_push($tax_q2, array(
             'taxonomy' => 'tender-market',
             'field' => 'id',
-            'terms' => $_POST['tender-market']
+            'terms' => $_POST['market']
         ));
     }
 
-    if($_POST['tender-countries']){	 
+    if(!empty($_POST['country'])){	 
         $filter_val++;
         array_push($tax_q2, array(
             'taxonomy' => 'tender-countries',
             'field'    => 'term_id',
-            'terms'    => $_POST['tender-countries'],
+            'terms'    => $_POST['country'],
         ));
     }
 
-    if($_POST['tender-products']){ 
+    if(!empty($_POST['product'])){ 
         $filter_val++;
         array_push($tax_q2, array(
             'taxonomy' => 'tender-products',
             'field'    => 'term_id',
-            'terms'    => $_POST['tender-products'],
+            'terms'    => $_POST['product'],
         ));
     }
 
@@ -192,17 +192,24 @@ function true_filter_function() {
 /* Filter form on archive page */
 add_action('kadence_before_main_content', 'filter_form_func', 10);
 function filter_form_func() {
-	
-    if (false !== get_transient('country')) { $tr_query['country'] = get_transient('country'); }
-    if (!empty($_GET['wpvtender-products'])) { $tr_query['product-slug'] = $_GET['wpvtender-products']; }
-    if (false !== get_transient('market')) { $tr_query['market'] = get_transient('market'); }
-    if (false !== get_transient('product')) { $tr_query['product'] = get_transient('product'); }
-    if (false !== get_transient('tender-status')) { $tr_query['tender-status'] = get_transient('tender-status'); }
-
-    delete_transient('country');
-    delete_transient('market');
-    delete_transient('product');
-    delete_transient('tender-status');
+    $tr_query = array();
+    
+    // Get filter values from URL query parameters
+    if (!empty($_GET['country'])) { 
+        $tr_query['country'] = $_GET['country']; 
+    }
+    if (!empty($_GET['wpvtender-products'])) { 
+        $tr_query['product-slug'] = $_GET['wpvtender-products']; 
+    }
+    if (!empty($_GET['market'])) { 
+        $tr_query['market'] = $_GET['market']; 
+    }
+    if (!empty($_GET['product'])) { 
+        $tr_query['product'] = $_GET['product']; 
+    }
+    if (!empty($_GET['tender-status'])) { 
+        $tr_query['tender-status'] = $_GET['tender-status']; 
+    }
 
     if ((get_query_var('post_type') == 'tenders' || get_query_var('tender-countries') || get_query_var('tender-market') || get_query_var('tender-products') || get_query_var('tender-regions')) && !is_single()) { 
         su_query_asset('js', 'ajax-filter');
@@ -212,13 +219,13 @@ function filter_form_func() {
         <span class="dropdown-filter-toggle"><span class="kadence-svg-iconset svg-baseline"><svg aria-hidden="true" class="kadence-svg-icon kadence-arrow-down-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>Expand</title><path d="M5.293 9.707l6 6c0.391 0.391 1.024 0.391 1.414 0l6-6c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-5.293 5.293-5.293-5.293c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414z"></path>
                 </svg></span></span>
             </div>';
-        echo '<div class="form-wrap"><form method="POST" id="filter" data-load="' . __('Loading...', 'kadence-child') . '">';
+        echo '<div class="form-wrap"><form method="GET" id="filter" data-load="' . __('Loading...', 'kadence-child') . '">';
     	echo '<div class="filter-wrap">';
 
          // Tender markets list
     $market_terms = get_terms_by_post_type('tender-market', 'tenders');
     if ($market_terms && !is_wp_error($market_terms)) {
-        echo '<select name="tender-market"><option value="">' . __('All markets', 'kadence-child') . '</option>';
+        echo '<select name="market"><option value="">' . __('All markets', 'kadence-child') . '</option>';
         foreach ($market_terms as $term) {
             echo '<option value="' . $term->term_id . '">' . $term->name . ' (' . $term->count . ')</option>';
         }
@@ -228,7 +235,7 @@ function filter_form_func() {
     // Country list
     $country_terms = get_terms_by_post_type('tender-countries', 'tenders');
     if ($country_terms && !is_wp_error($country_terms)) {
-        echo '<select name="tender-countries"><option value="">' . __('All countries', 'kadence-child') . '</option>';
+        echo '<select name="country"><option value="">' . __('All countries', 'kadence-child') . '</option>';
         foreach ($country_terms as $term) {
             echo '<option value="' . $term->term_id . '">' . $term->name . ' (' . $term->count . ')</option>';
         }
@@ -238,7 +245,7 @@ function filter_form_func() {
     // Product type list
     $product_terms = get_terms_by_post_type('tender-products', 'tenders');
     if ($product_terms && !is_wp_error($product_terms)) {
-        echo '<select name="tender-products"><option value="">' . __('All products', 'kadence-child') . '</option>';
+        echo '<select name="product"><option value="">' . __('All products', 'kadence-child') . '</option>';
         foreach ($product_terms as $term) {
             echo '<option value="' . $term->term_id . '">' . $term->name . ' (' . $term->count . ')</option>';
         }
@@ -247,7 +254,7 @@ function filter_form_func() {
 
         // Tender status
         if ((get_post_type() == 'tenders' || get_page_template_slug() === 'tenders-by-product.php') && empty($tr_query['tender-status'])) {
-            echo '<select name="tender_status"><option value="opened">' . __('Opened tenders', 'kadence-child') . '</option>';
+            echo '<select name="tender-status"><option value="opened">' . __('Opened tenders', 'kadence-child') . '</option>';
             echo '<option value="current">' . __('- current tenders', 'kadence-child') . '</option>';
             echo '<option value="upcoming">' . __('- upcoming tenders', 'kadence-child') . '</option>';
             echo '<option value="closed">' . __('Closed tenders', 'kadence-child') . '</option>';

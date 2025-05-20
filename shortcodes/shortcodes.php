@@ -58,14 +58,37 @@ function search_tenders_func( $atts ){
 add_action( 'admin_post_filter_action', 'filter_action_func' );
 add_action( 'admin_post_nopriv_filter_action', 'filter_action_func' );
 
-function filter_action_func() {   $data = array();
-     if (isset($_POST['tender-countries']) && $_POST['tender-countries']) {  set_transient("country", $_POST['tender-countries']); }
-     if (isset($_POST['tender-market']) && $_POST['tender-market']){  set_transient("market", $_POST['tender-market']);}
-     if (isset($_POST['tender-products']) && $_POST['tender-products']) {  set_transient("product", $_POST['tender-products']); }
-     if (isset($_POST['tender-status']) && $_POST['tender-status']) { set_transient("tender-status", $_POST['tender-status']); }
-    /* Handle request then generate response using echo or leaving PHP and using HTML */
-    if (isset($_POST['archive-slug']) && $_POST['archive-slug']) { wp_redirect(home_url().'/'.$_POST['archive-slug'].'/');
-    } else { wp_redirect(home_url().'/search-tenders');}
+function filter_action_func() {
+    $query_params = array();
+    
+    // Build the query parameters from form submission
+    if (isset($_POST['tender-countries']) && $_POST['tender-countries']) {
+        $query_params['country'] = $_POST['tender-countries'];
+    }
+    if (isset($_POST['tender-market']) && $_POST['tender-market']) {
+        $query_params['market'] = $_POST['tender-market'];
+    }
+    if (isset($_POST['tender-products']) && $_POST['tender-products']) {
+        $query_params['product'] = $_POST['tender-products'];
+    }
+    if (isset($_POST['tender-status']) && $_POST['tender-status']) {
+        $query_params['tender-status'] = $_POST['tender-status'];
+    }
+
+    // Build the URL with query parameters
+    if (isset($_POST['archive-slug']) && $_POST['archive-slug']) {
+        $redirect_url = home_url().'/'.$_POST['archive-slug'].'/';
+    } else {
+        $redirect_url = home_url().'/search-tenders';
+    }
+
+    // Add query parameters if they exist
+    if (!empty($query_params)) {
+        $redirect_url = add_query_arg($query_params, $redirect_url);
+    }
+
+    // Redirect to the URL with query parameters
+    wp_redirect($redirect_url);
     exit();
 }
 
