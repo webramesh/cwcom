@@ -93,17 +93,17 @@ class Tender_Subscribe_Subscribes
     }
 
     /**
-     * @param $tag
+     * @param $tag_group
      * @return void
      */
-    protected function get_tenders($tag)
+    protected function get_tenders($tag_group) // Renamed $tag to $tag_group for clarity
     {
         $result = [];
 
         $args = [
             'post_type' => 'tenders',
             'posts_per_page' => -1,
-            'date_query' => [ // ADDED: Fetches tenders posted in the last 24 hours
+            'date_query' => [ // From previous fix: Fetches tenders posted in the last 24 hours
                 [
                     'after'     => '24 hours ago',
                     'inclusive' => true,
@@ -111,33 +111,45 @@ class Tender_Subscribe_Subscribes
             ],
         ];
 
-        $tax_query = [];
-        foreach ( $tag as $child )
+        $tax_query_clauses = [];
+        foreach ( $tag_group as $criterion ) // Renamed $child to $criterion for clarity
         {
-            if( !empty($child->tag_id ))
+            // Only add a tax_query clause if a specific term is selected (i.e., tag_id is not '0' or empty)
+            if (isset($criterion->tag_id) && $criterion->tag_id != '0' && !empty($criterion->tag_id))
             {
-                $tax_query[] = [
-                    'taxonomy' => $child->tag_taxonomy,
-                    'field'    => 'id',
-                    'terms'    => ($child->tag_taxonomy == $this->config['taxonomies']['region']) ? explode(',', $child->tag_id) : [$child->tag_id],
+                $terms_to_query = [];
+                // For regions, tag_id might be a comma-separated list of term IDs
+                if ($criterion->tag_taxonomy == $this->config['taxonomies']['region'] && strpos($criterion->tag_id, ',') !== false) {
+                    $terms_to_query = explode(',', $criterion->tag_id);
+                } else {
+                    $terms_to_query = [$criterion->tag_id]; // Single term ID
+                }
+
+                $tax_query_clauses[] = [
+                    'taxonomy' => $criterion->tag_taxonomy,
+                    'field'    => 'term_id', // Assuming tag_id stores actual term IDs
+                    'terms'    => $terms_to_query,
+                    // 'operator' => 'IN' is default for an array of terms.
                 ];
             }
         }
 
-        if (!empty($tax_query)) {
-            $args['tax_query'] = $tax_query;
+        if (!empty($tax_query_clauses)) {
+            $args['tax_query'] = $tax_query_clauses;
+            // If there's more than one taxonomy query, set the relation to 'AND'.
+            // WP_Query defaults to 'AND' if 'relation' is not specified and tax_query is an array of arrays.
+            if (count($tax_query_clauses) > 1) {
+                $args['tax_query']['relation'] = 'AND';
+            }
         }
+        // If $tax_query_clauses is empty (e.g., all criteria were "All"), no tax_query is added,
+        // so all tenders matching the date_query will be fetched.
 
-        /**
-         * Get Tenders
-         */
         $query_instance = new WP_Query();
-        $fetched_tenders = $query_instance->query( $args ); // $fetched_tenders is an array of posts
+        $fetched_tenders = $query_instance->query( $args );
 
         if ( $fetched_tenders )
         {
-            // MODIFIED: Assign all fetched tenders directly, as WP_Query now handles date filtering.
-            // The previous foreach loop with manual date checking has been removed.
             $result = $fetched_tenders;
         }
 
@@ -510,13 +522,28 @@ class Tender_Subscribe_Subscribes
         </tr>";
     }
 
-    // Get all tender titles for subject line
+    // Get all tender titles for subject line and logging
     $tender_titles = array_map(function($tender) {
         return $tender['title'];
     }, $tender_data);
 
-    // Create a comma-separated list of tender titles
+    // Create a comma-separated list of tender titles (full version for email)
     $tender_titles_string = implode(', ', $tender_titles);
+    
+    // Create a truncated version for logging to prevent database issues
+    $total_tenders = count($tender_titles);
+    $log_tender_titles = $tender_titles_string;
+    
+    // If the tender titles string is too long, create a summarized version for logging
+    if (strlen($tender_titles_string) > 190) { // Conservative limit for varchar(255)
+        if ($total_tenders > 3) {
+            // Show first two tender titles + summary
+            $log_tender_titles = $tender_titles[0] . ', ' . $tender_titles[1] . ' and ' . ($total_tenders - 2) . ' more tenders';
+        } else {
+            // Just truncate if only 2-3 tenders but with very long names
+            $log_tender_titles = substr($tender_titles_string, 0, 190) . '...';
+        }
+    }
     
     $mail->send([
         'to' => $user->email,
@@ -524,11 +551,12 @@ class Tender_Subscribe_Subscribes
         'placeholders' => [
             'first_name' => $user->first_name,
             'tender_rows' => $tender_rows,
-            'tender_count' => count($tender_data),
+            'tender_count' => $total_tenders,
         ],
         'subscribe' => [
             'user_id' => isset($user->ID) ? $user->ID : 0, // Added fallback
-            'tender_title' => $tender_titles_string,
+            'tender_title' => $log_tender_titles, // Use truncated version for logs
+            'full_title_list' => $tender_titles_string, // Original full list - not used in current logging
         ]
     ]);
 }
