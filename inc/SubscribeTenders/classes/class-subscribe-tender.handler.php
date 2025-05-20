@@ -263,7 +263,7 @@ class Tender_Subscribe_Handler
                         break;
                     case 'regions':
                         $taxonomy = $this->config['taxonomies']['region'];
-                        if ($option) {
+                        if ($option && $option[0] !== '0') { // MODIFIED: Keep implode for multiple regions, but not for "All"
                             $option[0] = implode(',', $option);
                         }
                         break;
@@ -272,12 +272,14 @@ class Tender_Subscribe_Handler
                         break;
                 }
     
-                if ($taxonomy && ($option[0] == '0' || $option[0])) {
+                if ($taxonomy && isset($option[0])) { // MODIFIED: Check if $option[0] is set
+                    $tag_id_to_store = $option[0]; // Use $option[0] directly, which could be '0' for "All"
+
                     $inserted = $wpdb->insert($table_tags, [
                         'emailing_id' => $emailing_id,
                         'group_no' => $new_group,
                         'tag_taxonomy' => $taxonomy,
-                        'tag_id' => $option[0] // This will be '0' for "All" selections
+                        'tag_id' => $tag_id_to_store 
                     ]);
     
                     if (!$inserted) {

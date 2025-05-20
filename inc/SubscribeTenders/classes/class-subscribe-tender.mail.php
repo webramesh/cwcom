@@ -151,10 +151,16 @@ class Tender_Subscribe_Mail
                 $email_title = is_wp_error($message) ? $message->get_error_message() : $message;
             }
             
+            // Ensure the 'subscribe' field isn't too long for the database
+            $tender_titles = isset($subscribe['tender_title']) ? $subscribe['tender_title'] : '';
+            if (strlen($tender_titles) > 250) { // Conservative limit for varchar column
+                $tender_titles = substr($tender_titles, 0, 247) . '...';
+            }
+            
             $data = array(
                 'user_id' => isset($subscribe['user_id']) ? $subscribe['user_id'] : 0,
                 'user_email' => isset($subscribe['to']) ? $subscribe['to'] : '',
-                'subscribe' => isset($subscribe['tender_title']) ? $subscribe['tender_title'] : '',
+                'subscribe' => $tender_titles,
                 'message' => $formatted_message,
                 'code' => $code,
                 'email_title' => $email_title,
