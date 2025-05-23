@@ -94,13 +94,15 @@ jQuery(function($) {
         $('.header_login').appendTo('#mobile-menu');
         $('.header_logout').appendTo('#mobile-menu');
         // $('.header_flags').clone().appendTo('#mobile-menu');
-    }      // Tender modal functionality with 30-second delay
+    }
+    
+    // Tender modal functionality with 20-second delay
     $(document).ready(function() {
         // Get the modal element
         var modal = $('#tender-modal');
         
-        // Check if modal exists and should be shown
-        if (modal.length && modal.data('show-modal') === 'true') {
+        // Check if the modal exists and if the data-show-modal attribute is true
+        if (modal.length && modal.data('show-modal') === true) {
             // Show it after 30 seconds
             setTimeout(function() {
                 modal.fadeIn(500);
