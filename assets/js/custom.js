@@ -94,22 +94,17 @@ jQuery(function($) {
         $('.header_login').appendTo('#mobile-menu');
         $('.header_logout').appendTo('#mobile-menu');
         // $('.header_flags').clone().appendTo('#mobile-menu');
-    }
-    
-    // Tender modal functionality with 20-second delay
+    }      // Tender modal functionality with 30-second delay
     $(document).ready(function() {
         // Get the modal element
         var modal = $('#tender-modal');
         
-        // If modal exists and is meant to be shown (has display:block style)
-        if (modal.length && modal.css('display') === 'block') {
-            // Initially hide it
-            modal.hide();
-            
-            // Show it after 20 seconds
+        // Check if modal exists and should be shown
+        if (modal.length && modal.data('show-modal') === 'true') {
+            // Show it after 30 seconds
             setTimeout(function() {
                 modal.fadeIn(500);
-            }, 30000); // 20000 milliseconds = 30 seconds
+            }, 30000); // 30000 milliseconds = 30 seconds
         }
 
         // Yes button - redirect to the "Submit interest request" tab
