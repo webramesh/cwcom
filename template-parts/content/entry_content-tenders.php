@@ -710,7 +710,7 @@ if (isset($_GET['access'])) {
 	$show_modal = (strpos($current_url, '/tenders/') !== false) && (!empty($tender_offer_deadline) && $tender_offer_deadline > time());
 	?>
 	
-	<div class="cw-modal-overlay" id="tender-modal" style="display:none;" data-show-modal="<?php echo $show_modal ? 'true' : 'false'; ?>">
+	<div class="cw-modal-overlay" id="tender-modal" style="display:<?php echo $show_modal ? 'block' : 'none'; ?>">
       <div class="cw-modal">
         <h2>Would you like to discuss this tender in person?</h2>
         <button class="cw-btn cw-btn-yes" id="tender-yes">Yes</button>

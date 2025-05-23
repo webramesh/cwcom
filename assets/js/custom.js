@@ -101,12 +101,15 @@ jQuery(function($) {
         // Get the modal element
         var modal = $('#tender-modal');
         
-        // Check if the modal exists and if the data-show-modal attribute is true
-        if (modal.length && modal.data('show-modal') === true) {
-            // Show it after 30 seconds
+        // If modal exists and is meant to be shown (has display:block style)
+        if (modal.length && modal.css('display') === 'block') {
+            // Initially hide it
+            modal.hide();
+            
+            // Show it after 20 seconds
             setTimeout(function() {
                 modal.fadeIn(500);
-            }, 30000); // 30000 milliseconds = 30 seconds
+            }, 30000); // 20000 milliseconds = 30 seconds
         }
 
         // Yes button - redirect to the "Submit interest request" tab
