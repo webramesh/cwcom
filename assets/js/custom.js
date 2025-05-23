@@ -230,3 +230,31 @@ jQuery(function($) {
         window.print();
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const tenderModal = document.getElementById('tender-modal');
+    if (tenderModal && tenderModal.dataset.showModalFlag === 'true') {
+        setTimeout(() => {
+            tenderModal.style.display = 'block';
+        }, 30000);
+    }
+
+    const tenderNoButton = document.getElementById('tender-no');
+    if (tenderNoButton) {
+        tenderNoButton.addEventListener('click', function() {
+            if (tenderModal) {
+                tenderModal.style.display = 'none';
+            }
+        });
+    }
+
+    // Optional: Close modal if user clicks outside of it
+    const modalOverlay = document.querySelector('.cw-modal-overlay');
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', function(event) {
+            if (event.target === modalOverlay) {
+                modalOverlay.style.display = 'none';
+            }
+        });
+    }
+});
