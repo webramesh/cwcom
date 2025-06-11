@@ -22,6 +22,15 @@ class CW_Auth {
         
         // AJAX login handling
         add_action('wp_ajax_nopriv_ajax_login', array($this, 'ajax_login'));
+        add_action('wp_ajax_ajax_login', array($this, 'ajax_login'));
+        
+        // Add AJAX hook for nonce refresh
+        add_action('wp_ajax_nopriv_get_fresh_nonce', array($this, 'get_fresh_nonce'));
+        add_action('wp_ajax_get_fresh_nonce', array($this, 'get_fresh_nonce'));
+        
+        // Add a test endpoint to verify AJAX is working
+        add_action('wp_ajax_nopriv_test_ajax', array($this, 'test_ajax'));
+        add_action('wp_ajax_test_ajax', array($this, 'test_ajax'));
 
         // Initialize Gravity Forms globally
         add_action('wp_footer', array($this, 'initialize_gravity_forms'));
@@ -79,8 +88,49 @@ class CW_Auth {
 
     // AJAX login handler
     public function ajax_login() {
-        // Check the nonce
-        check_ajax_referer('ajax-login-nonce', 'security');
+        // Add comprehensive debugging
+        error_log('AJAX Login attempt received');
+        error_log('POST data: ' . print_r($_POST, true));
+        error_log('Current user ID: ' . get_current_user_id());
+        error_log('Current nonce for ajax-login-nonce: ' . wp_create_nonce('ajax-login-nonce'));
+        
+        // Check if nonce field exists
+        if (!isset($_POST['security'])) {
+            error_log('No security nonce provided in POST data');
+            wp_send_json_error(array(
+                'message' => __('Security token missing. Please refresh the page and try again.', 'kadence-child')
+            ));
+            exit;
+        }
+        
+        // Log the nonce being verified
+        $received_nonce = $_POST['security'];
+        $expected_action = 'ajax-login-nonce';
+        error_log("Verifying nonce: '$received_nonce' against action: '$expected_action'");
+        
+        // Try to verify the nonce with more detailed debugging
+        $nonce_valid = wp_verify_nonce($received_nonce, $expected_action);
+        error_log("Nonce verification result: " . ($nonce_valid ? 'VALID' : 'INVALID'));
+        
+        if (!$nonce_valid) {
+            // Additional debugging - check what the expected nonce would be
+            $current_expected = wp_create_nonce($expected_action);
+            error_log("Current expected nonce would be: '$current_expected'");
+            error_log("Received nonce was: '$received_nonce'");
+            error_log("Nonce age check: " . wp_verify_nonce($received_nonce, $expected_action));
+            
+            wp_send_json_error(array(
+                'message' => __('Security check failed. Please refresh the page and try again.', 'kadence-child'),
+                'debug_info' => array(
+                    'received_nonce' => $received_nonce,
+                    'expected_nonce' => $current_expected,
+                    'nonce_action' => $expected_action
+                )
+            ));
+            exit;
+        }
+        
+        error_log('Nonce verification successful');
         
         // Get login credentials
         $username = isset($_POST['username']) ? sanitize_user($_POST['username']) : '';
@@ -141,6 +191,25 @@ class CW_Auth {
             ));
             exit;
         }
+    }
+    
+    // Test AJAX endpoint
+    public function test_ajax() {
+        wp_send_json_success(array(
+            'message' => 'AJAX is working!',
+            'timestamp' => current_time('mysql')
+        ));
+    }
+    
+    // Get fresh nonce endpoint to handle cache-related nonce issues
+    public function get_fresh_nonce() {
+        // Generate a fresh nonce
+        $fresh_nonce = wp_create_nonce('ajax-login-nonce');
+        
+        wp_send_json_success(array(
+            'nonce' => $fresh_nonce,
+            'timestamp' => current_time('mysql')
+        ));
     }
 
     public function reg_forms() {

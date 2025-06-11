@@ -174,68 +174,140 @@ class AuthModal {
                 const password = form.querySelector('#client_user_pass').value;
                 const remember = form.querySelector('#client_rememberme')?.checked || false;
                 const redirect = form.querySelector('input[name="redirect_to"]')?.value || '';
-                const security = form.querySelector('input[name="login-security"]')?.value || '';
                 
                 // Disable submit button and show loading state
                 const submitButton = form.querySelector('#client_wp-submit');
                 if (submitButton) {
-                    submitButton.value = 'Signing in...';
+                    submitButton.value = 'Getting security token...';
                     submitButton.disabled = true;
                 }
                 
-                // Send AJAX login request
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', cwAuth.ajaxurl, true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-                xhr.onload = function() {
-                    if (xhr.status >= 200 && xhr.status < 400) {
-                        const response = JSON.parse(xhr.responseText);
-                        
-                        // Reset submit button
+                // STEP 1: Always get a fresh nonce first to bypass caching issues
+                this.getFreshNonceAndLogin(form, username, password, remember, redirect, submitButton, errorContainer);
+            });
+        });
+    }
+    
+    // Method to get fresh nonce and then perform login
+    getFreshNonceAndLogin(form, username, password, remember, redirect, submitButton, errorContainer) {
+        // Get a fresh nonce via AJAX to bypass any caching
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', cwAuth.ajaxurl, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success && response.data.nonce) {
+                        // Now perform the actual login with the fresh nonce
                         if (submitButton) {
-                            submitButton.value = 'Sign In';
-                            submitButton.disabled = false;
+                            submitButton.value = 'Signing in...';
                         }
-                        
-                        if (response.success) {
-                            // Login successful, redirect
-                            window.location.href = response.data.redirect;
-                        } else {
-                            // Login failed, show error
-                            if (errorContainer) {
-                                errorContainer.innerHTML = `<div class="login_error">${response.data.message}</div>`;
-                                errorContainer.style.display = 'block';
-                            }
-                        }
+                        this.performLogin(username, password, remember, redirect, response.data.nonce, submitButton, errorContainer);
+                    } else {
+                        this.handleLoginError(submitButton, errorContainer, 'Failed to get security token. Please try again.');
                     }
-                };
-                xhr.onerror = function() {
+                } catch (e) {
+                    console.error('Failed to parse nonce response:', e);
+                    this.handleLoginError(submitButton, errorContainer, 'Security token error. Please refresh the page.');
+                }
+            } else {
+                this.handleLoginError(submitButton, errorContainer, 'Security token request failed. Please try again.');
+            }
+        };
+        xhr.onerror = () => {
+            this.handleLoginError(submitButton, errorContainer, 'Network error. Please check your connection.');
+        };
+        
+        // Request a fresh nonce
+        const formData = new URLSearchParams();
+        formData.append('action', 'get_fresh_nonce');
+        xhr.send(formData.toString());
+    }
+    
+    // Method to perform the actual login with a fresh nonce
+    performLogin(username, password, remember, redirect, security, submitButton, errorContainer) {
+        // Debug logging
+        console.log('Login attempt with fresh nonce:', { 
+            username, 
+            security, 
+            ajaxurl: cwAuth.ajaxurl 
+        });
+        
+        // Send AJAX login request
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', cwAuth.ajaxurl, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        xhr.onload = () => {
+            console.log('XHR Response Status:', xhr.status);
+            console.log('XHR Response Text:', xhr.responseText);
+            
+            if (xhr.status >= 200 && xhr.status < 400) {
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    
                     // Reset submit button
                     if (submitButton) {
                         submitButton.value = 'Sign In';
                         submitButton.disabled = false;
                     }
                     
-                    // Show generic error
-                    if (errorContainer) {
-                        errorContainer.innerHTML = '<div class="login_error">An error occurred. Please try again.</div>';
-                        errorContainer.style.display = 'block';
+                    if (response.success) {
+                        // Login successful, redirect
+                        window.location.href = response.data.redirect;
+                    } else {
+                        // Login failed, show error
+                        if (errorContainer) {
+                            errorContainer.innerHTML = `<div class="login_error">${response.data.message}</div>`;
+                            errorContainer.style.display = 'block';
+                        }
                     }
-                };
-                
-                // Prepare form data with correct field names
-                const formData = new URLSearchParams();
-                formData.append('action', 'ajax_login');
-                formData.append('username', username); // This must match what auth.php expects
-                formData.append('password', password); // This must match what auth.php expects
-                formData.append('remember', remember ? 'true' : 'false');
-                formData.append('redirect', redirect);
-                formData.append('security', security);
-                
-                // Send the request
-                xhr.send(formData.toString());
-            });
-        });
+                } catch (e) {
+                    console.error('Failed to parse response:', e);
+                    this.handleLoginError(submitButton, errorContainer, 'Server error. Please try again or contact support.');
+                }
+            } else {
+                // HTTP error
+                console.error('HTTP Error:', xhr.status, xhr.statusText);
+                let errorMessage = 'Server error. Please try again.';
+                if (xhr.status === 403) {
+                    errorMessage = 'Security check failed. This may be due to page caching. Please refresh the page and try again.';
+                } else if (xhr.status === 404) {
+                    errorMessage = 'Login service not found. Please contact support.';
+                }
+                this.handleLoginError(submitButton, errorContainer, errorMessage);
+            }
+        };
+        xhr.onerror = () => {
+            this.handleLoginError(submitButton, errorContainer, 'An error occurred. Please try again.');
+        };
+        
+        // Prepare form data with correct field names
+        const formData = new URLSearchParams();
+        formData.append('action', 'ajax_login');
+        formData.append('username', username);
+        formData.append('password', password);
+        formData.append('remember', remember ? 'true' : 'false');
+        formData.append('redirect', redirect);
+        formData.append('security', security);
+        
+        // Send the request
+        xhr.send(formData.toString());
+    }
+    
+    // Helper method to handle login errors
+    handleLoginError(submitButton, errorContainer, message) {
+        // Reset submit button
+        if (submitButton) {
+            submitButton.value = 'Sign In';
+            submitButton.disabled = false;
+        }
+        
+        // Show error
+        if (errorContainer) {
+            errorContainer.innerHTML = `<div class="login_error">${message}</div>`;
+            errorContainer.style.display = 'block';
+        }
     }
 
     initializeFormPlaceholders() {
@@ -408,6 +480,24 @@ document.addEventListener('DOMContentLoaded', () => {
             loginSection.style.display = 'none';
             registerSection.style.display = 'block';
         }
+    }
+    
+    // Add test button for debugging (temporary)
+    if (window.location.pathname.includes('client-area')) {
+        const testButton = document.createElement('button');
+        testButton.textContent = 'Test AJAX';
+        testButton.style.cssText = 'position: fixed; top: 10px; right: 10px; z-index: 9999; background: red; color: white; padding: 10px;';
+        testButton.onclick = function() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', cwAuth.ajaxurl, true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            xhr.onload = function() {
+                console.log('Test AJAX Response:', xhr.status, xhr.responseText);
+                alert('Test AJAX Response: ' + xhr.status + ' - ' + xhr.responseText);
+            };
+            xhr.send('action=test_ajax');
+        };
+        document.body.appendChild(testButton);
     }
 });
 

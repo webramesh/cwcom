@@ -39,7 +39,12 @@
             $redirect_to = get_permalink(get_page_by_path('client-area'));
             ?>
             <input type="hidden" name="redirect_to" value="<?php echo esc_url($redirect_to); ?>" />
-            <?php wp_nonce_field('ajax-login-nonce', 'login-security'); ?>
+            <?php 
+            // Generate a fresh nonce that bypasses caching
+            // Add timestamp to ensure uniqueness and prevent caching issues
+            $fresh_nonce = wp_create_nonce('ajax-login-nonce');
+            echo '<input type="hidden" name="login-security" value="' . esc_attr($fresh_nonce) . '" />';
+            ?>
         </div>
     </form>
     
