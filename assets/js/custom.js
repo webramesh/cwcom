@@ -95,21 +95,26 @@ jQuery(function($) {
         $('.header_logout').appendTo('#mobile-menu');
         // $('.header_flags').clone().appendTo('#mobile-menu');
     }
-    
-    // Tender modal functionality with 20-second delay
+
+    // Tender modal functionality with 1-minute delay and localStorage tracking
     $(document).ready(function() {
         // Get the modal element
         var modal = $('#tender-modal');
         
-        // If modal exists and is meant to be shown (has display:block style)
-        if (modal.length && modal.css('display') === 'block') {
-            // Initially hide it
-            modal.hide();
+        // If modal exists and should be shown
+        if (modal.length && modal.data('show-modal-flag') === 'true') {
+            var tenderId = modal.data('tender-id');
+            var storageKey = 'tender_modal_shown_' + tenderId;
             
-            // Show it after 20 seconds
-            setTimeout(function() {
-                modal.fadeIn(500);
-            }, 30000); // 20000 milliseconds = 30 seconds
+            // Check if modal has already been shown for this tender
+            if (!localStorage.getItem(storageKey)) {
+                // Show modal after 1 minute (60000 milliseconds)
+                setTimeout(function() {
+                    modal.fadeIn(500);
+                    // Mark this tender as having shown the modal
+                    localStorage.setItem(storageKey, 'true');
+                }, 60000); // 1 minute delay
+            }
         }
 
         // Yes button - redirect to the "Submit interest request" tab
@@ -229,32 +234,4 @@ jQuery(function($) {
         e.preventDefault();
         window.print();
     });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const tenderModal = document.getElementById('tender-modal');
-    if (tenderModal && tenderModal.dataset.showModalFlag === 'true') {
-        setTimeout(() => {
-            tenderModal.style.display = 'block';
-        }, 30000);
-    }
-
-    const tenderNoButton = document.getElementById('tender-no');
-    if (tenderNoButton) {
-        tenderNoButton.addEventListener('click', function() {
-            if (tenderModal) {
-                tenderModal.style.display = 'none';
-            }
-        });
-    }
-
-    // Optional: Close modal if user clicks outside of it
-    const modalOverlay = document.querySelector('.cw-modal-overlay');
-    if (modalOverlay) {
-        modalOverlay.addEventListener('click', function(event) {
-            if (event.target === modalOverlay) {
-                modalOverlay.style.display = 'none';
-            }
-        });
-    }
 });
